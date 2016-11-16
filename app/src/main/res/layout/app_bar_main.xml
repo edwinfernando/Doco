@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.domicilio.confiable.doco.views.activities.MainActivity">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/actionBarSize"
+                android:background="@drawable/gradient_principal"
+                app:titleTextAppearance="@style/AppTheme.Toolbar.Title">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_action_doco" />
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
+        <include layout="@layout/content_main" />
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/menu_yellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="10dp"
+            fab:menu_animationDelayPerItem="0"
+            fab:menu_colorNormal="@color/colorYellow"
+            fab:menu_colorPressed="@color/colorYellow"
+            fab:menu_colorRipple="@color/colorBlackAlpha"
+            fab:menu_icon="@drawable/ic_action_doco"
+            fab:menu_labels_hideAnimation="@anim/jump_to_down"
+            fab:menu_labels_position="right"
+            fab:menu_labels_showAnimation="@anim/jump_from_down"
+            fab:menu_labels_style="@style/MenuLabelsStyle"
+            fab:menu_shadowColor="@color/colorBlackAlphaHint"
+            fab:menu_fab_label="">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_conductores"
+                style="@style/MenuButtonsStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_directions_bike_black"
+                fab:fab_size="normal"
+                /><!--fab:fab_label="@string/conductores"-->
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_pedidos"
+                style="@style/MenuButtonsStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_shopping_cart_black"
+                fab:fab_size="normal"
+                /><!--fab:fab_label="@string/pedidos" -->
+        </com.github.clans.fab.FloatingActionMenu>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+    <com.arlib.floatingsearchview.FloatingSearchView
+        android:id="@+id/floating_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:floatingSearch_close_search_on_keyboard_dismiss="false"
+        app:floatingSearch_dimBackground="false"
+        app:floatingSearch_dismissOnOutsideTouch="true"
+        app:floatingSearch_leftActionMode="noLeftAction"
+        app:floatingSearch_menu="@menu/main"
+        app:floatingSearch_searchBarMarginLeft="@dimen/search_view_inset"
+        app:floatingSearch_searchBarMarginRight="@dimen/search_view_inset"
+        app:floatingSearch_searchBarMarginTop="50dp"
+        app:floatingSearch_searchHint="@string/introduzca_destino"
+        app:floatingSearch_showSearchKey="true"
+        app:floatingSearch_suggestionsListAnimDuration="250" />
+</RelativeLayout>

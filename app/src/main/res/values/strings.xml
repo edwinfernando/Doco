@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Doco</string>
+    <string name="deseo_registrarme">¿Deseo registrarme?</string>
+    <string name="registrate">Registrate</string>
+    <string name="email">email</string>
+    <string name="contrasena">contraseña</string>
+    <string name="olvidaste_contrasena">¿Olvidaste tu contraseña?</string>
+    <string name="recordar">Recordar</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="politicas">Las políticas públicas son las respuestas que el Estado  puede dar a las demandas de la sociedad, en forma de normas, instituciones, prestaciones,  bienes públicos o servicios.</string>
+    <string name="acepto_terminos">Acepto los terminos y condiciones.</string>
+    <string name="registrar">Registrar</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="pago">Pago</string>
+    <string name="docos">Docos</string>
+    <string name="docos_gratis">Docos gratis</string>
+    <string name="promociones">Promociones</string>
+    <string name="ayuda">Ayuda</string>
+    <string name="conduce_doco">Conduce doco</string>
+    <string name="configuracion">Configuración</string>
+
+
+    <string name="action_voice_rec">action voice rec</string>
+    <string name="action_location">action location</string>
+    <string name="action_taxi">action taxi</string>
+    <string name="action_change_colors">change style</string>
+    <string name="introduzca_destino">Introduzca un destino</string>
+    <string name="conductores">Conductores</string>
+    <string name="pedidos">Pedidos</string>
+
+</resources>
