@@ -35,6 +35,13 @@
 
         <include layout="@layout/content_main" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+            <include layout="@layout/view_photo_marker"/>
+        </LinearLayout>
+
         <com.github.clans.fab.FloatingActionMenu
             android:id="@+id/menu_yellow"
             android:layout_width="wrap_content"
