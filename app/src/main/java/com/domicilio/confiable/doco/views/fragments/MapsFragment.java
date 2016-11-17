@@ -102,19 +102,20 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
                 layoutParams.setMargins(0, 0, 30, 220);
             }
 
-            buildGoogleApiClient();
-
-            mGoogleApiClient.connect();
+            /** Estas dos lineas se descomentan para usar el api de google*/
+         //   buildGoogleApiClient();
+       //     mGoogleApiClient.connect();
         }
     }
 
+    //Este metodo utiliza para actualizar el mapa utilizando el modelo vista presenter
     @Override
     public void refreshMap(Marker marker) {
-       /* mGoogleMap.clear();
+        mGoogleMap.clear();
 
         LatLng location = new LatLng(marker.getLat(), marker.getLng());
         //     mMap.addMarker(new MarkerOptions().position(location).title(marker.getName()));
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16.0f));//zoom*/
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15.0f));
     }
 
 
@@ -135,14 +136,14 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
             if (mLastLocation != null) {
                 //place marker at current position
                 //mGoogleMap.clear();
-                latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+               /* latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
 
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
                 markerOptions.title("Current Position");
                 //markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_location));
                 markerOptions.icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(R.drawable.profile)));
-                currLocationMarker = mGoogleMap.addMarker(markerOptions);
+                currLocationMarker = mGoogleMap.addMarker(markerOptions);*/
             }
 
             mLocationRequest = new LocationRequest();
@@ -167,7 +168,7 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
         Toast.makeText(getActivity(), "onConnectionFailed", Toast.LENGTH_SHORT).show();
     }
 
-    //Metodo que permite actualizar el mapa constantemente
+    //Metodo que permite actualizar el mapa con el api de google
     @Override
     public void onLocationChanged(Location location) {
         //place marker at current position
@@ -176,13 +177,13 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
             currLocationMarker.remove();
         }
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions();
+       /* MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title("Current Position");
        // markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_location));
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(R.drawable.profile)));
         markerOptions.flat(true);
-        currLocationMarker = mGoogleMap.addMarker(markerOptions);
+        currLocationMarker = mGoogleMap.addMarker(markerOptions);*/
 
         Toast.makeText(getActivity(), "Location Changed", Toast.LENGTH_SHORT).show();
 
