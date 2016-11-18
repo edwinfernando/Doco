@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_compass"
+        android:src="@drawable/ic_shopping_cart_black"
         android:visibility="invisible"
         app:backgroundTint="@color/colorYellow"/>
 
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_share"
+        android:src="@drawable/ic_attach_money_black"
         android:visibility="invisible"
         app:backgroundTint="@color/colorYellow"/>
 </FrameLayout>

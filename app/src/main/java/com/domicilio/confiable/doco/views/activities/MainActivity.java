@@ -10,6 +10,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -43,7 +45,11 @@ public class MainActivity extends AppCompatActivity
     Animation show_fab_3;
     Animation hide_fab_3;
 
-    int margin_fab;
+    int marginX_fab, marginY_fab;
+
+    FrameLayout.LayoutParams layoutParams;
+    FrameLayout.LayoutParams layoutParams2;
+    FrameLayout.LayoutParams layoutParams3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +94,15 @@ public class MainActivity extends AppCompatActivity
         fab1.setOnClickListener(this);
         fab2.setOnClickListener(this);
         fab3.setOnClickListener(this);
+
+        //Calculate metrics
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int screenWidth = displaymetrics.widthPixels;
+        int screenHeight = displaymetrics.heightPixels;
+
+        marginX_fab = (int) (screenWidth * 0.25);
+        marginY_fab = (int) (screenHeight * 0.03);
     }
 
     @Override
@@ -193,55 +208,54 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void expandFAB() {
-        margin_fab = (int) (fab2.getX() * 0.5);
+        layoutParams = (FrameLayout.LayoutParams) fab1.getLayoutParams();
+        layoutParams2 = (FrameLayout.LayoutParams) fab2.getLayoutParams();
+        layoutParams3 = (FrameLayout.LayoutParams) fab3.getLayoutParams();
+
+        layoutParams.rightMargin += marginX_fab;
+        layoutParams2.bottomMargin += marginY_fab;
+        layoutParams3.leftMargin += marginX_fab;
+
         fab.startAnimation(hide_fab);
+
         //Floating Action Button 1
-        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) fab1.getLayoutParams();
-        layoutParams.rightMargin += margin_fab;
-       // layoutParams.bottomMargin += (int) (fab1.getY() * 0.02);
         fab1.setLayoutParams(layoutParams);
         fab1.startAnimation(show_fab_1);
         fab1.setClickable(true);
 
         //Floating Action Button 2
-        FrameLayout.LayoutParams layoutParams2 = (FrameLayout.LayoutParams) fab2.getLayoutParams();
-        //layoutParams2.rightMargin += (int) (fab2.getWidth() * 0.5);
-        layoutParams2.bottomMargin += (int) (fab2.getY() * 0.04);
         fab2.setLayoutParams(layoutParams2);
         fab2.startAnimation(show_fab_2);
         fab2.setClickable(true);
 
         //Floating Action Button 3
-        FrameLayout.LayoutParams layoutParams3 = (FrameLayout.LayoutParams) fab3.getLayoutParams();
-        layoutParams3.leftMargin += margin_fab;
-       // layoutParams3.bottomMargin += (int) (fab3.getY() * 0.02);
         fab3.setLayoutParams(layoutParams3);
         fab3.startAnimation(show_fab_3);
         fab3.setClickable(true);
     }
 
     public void hideFAB() {
+        layoutParams = (FrameLayout.LayoutParams) fab1.getLayoutParams();
+        layoutParams2 = (FrameLayout.LayoutParams) fab2.getLayoutParams();
+        layoutParams3 = (FrameLayout.LayoutParams) fab3.getLayoutParams();
+
+        layoutParams.rightMargin -= marginX_fab;
+        layoutParams2.bottomMargin -= marginY_fab;
+        layoutParams3.leftMargin -= marginX_fab;
+
         fab.startAnimation(show_fab);
+
         //Floating Action Button 1
-        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) fab1.getLayoutParams();
-        layoutParams.rightMargin -= (int) margin_fab;
-       // layoutParams.bottomMargin -= (int) (fab1.getY() * 0.02);
         fab1.setLayoutParams(layoutParams);
         fab1.startAnimation(hide_fab_1);
         fab1.setClickable(false);
 
         //Floating Action Button 2
-        FrameLayout.LayoutParams layoutParams2 = (FrameLayout.LayoutParams) fab2.getLayoutParams();
-        //layoutParams2.rightMargin -= (int) (fab2.getWidth() * 1.5);
-        layoutParams2.bottomMargin -= (int) (fab2.getY() * 0.04);
         fab2.setLayoutParams(layoutParams2);
         fab2.startAnimation(hide_fab_2);
         fab2.setClickable(false);
 
         //Floating Action Button 3
-        FrameLayout.LayoutParams layoutParams3 = (FrameLayout.LayoutParams) fab3.getLayoutParams();
-        layoutParams3.leftMargin -= (int) margin_fab;
-       // layoutParams3.bottomMargin -= (int) (fab3.getY() * 0.02);
         fab3.setLayoutParams(layoutParams3);
         fab3.startAnimation(hide_fab_3);
         fab3.setClickable(false);
