@@ -21,10 +21,10 @@ import java.util.List;
  */
 public class ListDriverFragment extends Fragment {
 
-    private List<Driver> driverList;
-    RecyclerView listDriverAvailable;
+    private List<Driver> driver_list;
+    RecyclerView list_driver_available;
 
-    private LinearLayoutManager linearLayoutManager;
+    private LinearLayoutManager linear_layout_manager;
 
     public ListDriverFragment() {
         // Required empty public constructor
@@ -37,15 +37,16 @@ public class ListDriverFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_list_drives, container, false);
         // Inflate the layout for this fragment
-        linearLayoutManager = new LinearLayoutManager(getContext());
+        linear_layout_manager = new LinearLayoutManager(getContext());
         LDrivers lDrivers = new LDrivers();
+        list_driver_available = (RecyclerView) view.findViewById(R.id.list_drivers_avaible);
 
-        lDrivers.addDriver("12344","Edwin Fernando Muñoz","3137649407",70);
-        driverList = lDrivers.getListDrivers();
+       // lDrivers.addDriver("12344","Edwin Fernando Muñoz","3137649407",70);
+        driver_list = lDrivers.getListDrivers();
 
-        DriverAdapter adapter = new DriverAdapter(getContext(), driverList);
-        listDriverAvailable.setAdapter(adapter);
-        listDriverAvailable.setLayoutManager(linearLayoutManager);
+        DriverAdapter adapter = new DriverAdapter(getContext(), driver_list);
+        list_driver_available.setAdapter(adapter);
+        list_driver_available.setLayoutManager(linear_layout_manager);
 
         return view;
     }

@@ -217,6 +217,7 @@ public class MainActivity extends AppCompatActivity
         layoutParams3.leftMargin += marginX_fab;
 
         fab.startAnimation(hide_fab);
+        fab.setClickable(false);
 
         //Floating Action Button 1
         fab1.setLayoutParams(layoutParams);
@@ -244,6 +245,7 @@ public class MainActivity extends AppCompatActivity
         layoutParams3.leftMargin -= marginX_fab;
 
         fab.startAnimation(show_fab);
+        fab.setClickable(true);
 
         //Floating Action Button 1
         fab1.setLayoutParams(layoutParams);

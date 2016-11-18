@@ -40,7 +40,7 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverHold
     public void onBindViewHolder(DriverAdapter.DriverHolder holder, int position) {
         Driver driver = dataSource.get(position);
         // holder.conductor_profile_image.setImageDrawable(driver.getImage_profile());
-        holder.name_driver.setText(driver.getName_driver());
+        holder.name_driver.setText(driver.getName());
     }
 
     @Override

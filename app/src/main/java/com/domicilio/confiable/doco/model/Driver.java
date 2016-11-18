@@ -8,50 +8,47 @@ import android.net.Uri;
 
 public class Driver {
 
+    public static  final String NAME_TABLE = "Drivers";
+    public static  final String CODE = "code";
+    public static  final String NAME = "name";
+    public static  final String MOVIL_NUMBER = "movilNumber";
+    public static  final String SATISFATION_SCORE = "satisfationScore";
+
     private Uri image_profile;
-    private String code_driver;
-    private String name_driver;
-    private String cel_driver;
+    private String code;
+    private String name;
+    private String movil_number;
     private int satisfation_score;
 
-    public Uri getImage_profile() {
-        return image_profile;
+    public String getCode() {
+        return code;
     }
 
-    public void setImage_profile(Uri image_profile) {
-        this.image_profile = image_profile;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getCode_driver() {
-        return code_driver;
+    public String getName() {
+        return name;
     }
 
-    public void setCode_driver(String code_driver) {
-        this.code_driver = code_driver;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getName_driver() {
-        return name_driver;
+    public String getMovilNumber() {
+        return movil_number;
     }
 
-    public void setName_driver(String name_driver) {
-        this.name_driver = name_driver;
+    public void setMovilNumber(String movil_number) {
+        this.movil_number = movil_number;
     }
 
-    public String getCel_driver() {
-        return cel_driver;
-    }
-
-    public void setCel_driver(String cel_driver) {
-        this.cel_driver = cel_driver;
-    }
-
-    public int getSatisfation_score() {
+    public int getSatisfationScore() {
         return satisfation_score;
     }
 
-    public void setSatisfation_score(int satisfation_score) {
+    public void setSatisfationScore(int satisfation_score) {
         this.satisfation_score = satisfation_score;
     }
-
 }

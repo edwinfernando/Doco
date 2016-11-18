@@ -23,6 +23,8 @@ public class ListDriverActivity extends AppCompatActivity implements IFragmentLi
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(this);
+
+        gotoFragment();
     }
 
     @Override
