@@ -17,14 +17,13 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="pago">Pago</string>
+    <string name="payment">Pago</string>
     <string name="docos">Docos</string>
-    <string name="docos_gratis">Docos gratis</string>
-    <string name="promociones">Promociones</string>
-    <string name="ayuda">Ayuda</string>
-    <string name="conduce_doco">Conduce doco</string>
-    <string name="configuracion">Configuración</string>
-
+    <string name="free_docos">Docos gratis</string>
+    <string name="promotions">Promociones</string>
+    <string name="help">Ayuda</string>
+    <string name="driver_doco">Conduce doco</string>
+    <string name="setting">Configuración</string>
 
     <string name="action_voice_rec">action voice rec</string>
     <string name="action_location">action location</string>
@@ -34,7 +33,18 @@
     <string name="conductores">Conductores</string>
     <string name="pedidos">Pedidos</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="code">Código:</string>
+    <string name="movil">Celular:</string>
+    <string name="name_vehicle">Vehiculo:</string>
+    <string name="license_plate">Placa:</string>
+    <string name="soat_vehicle">Soat:</string>
+    <string name="mechanical_technician">Tecno mecanica:</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="code_doco">Código doco:</string>
+    <string name="doco_rate">Tarifa:</string>
+    <string name="wait_time">Tiempo de espera:</string>
+    <string name="come_for_me">Ven por mí</string>
+    <string name="distance">Distancia:</string>
 
 </resources>

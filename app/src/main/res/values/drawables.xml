@@ -1,8 +1,19 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <item name="ic_menu_camera" type="drawable">@android:drawable/ic_menu_camera</item>
-    <item name="ic_menu_gallery" type="drawable">@android:drawable/ic_menu_gallery</item>
-    <item name="ic_menu_slideshow" type="drawable">@android:drawable/ic_menu_slideshow</item>
-    <item name="ic_menu_manage" type="drawable">@android:drawable/ic_menu_manage</item>
-    <item name="ic_menu_share" type="drawable">@android:drawable/ic_menu_share</item>
-    <item name="ic_menu_send" type="drawable">@android:drawable/ic_menu_send</item>
+    <!-- <item name="ic_payment" type="drawable">@drawable/ic_payment</item>
+     <item name="ic_travels" type="drawable">@drawable/ic_travels</item>
+     <item name="ic_share" type="drawable">@drawable/ic_share</item>
+     <item name="ic_card_giftcard" type="drawable">@drawable/ic_card_giftcard</item>
+     <item name="ic_help_outline" type="drawable">@drawable/ic_help_outline</item>
+     <item name="ic_motorbike" type="drawable">@drawable/ic_motorbike</item>
+     <item name="ic_settings" type="drawable">@drawable/ic_settings</item>
+
+     <item name="ic_mic" type="drawable">@drawable/ic_mic</item>
+     <item name="ic_my_location" type="drawable">@drawable/ic_my_location</item>
+     <item name="ic_shopping_cart" type="drawable">@drawable/ic_shopping_cart</item>
+     <item name="ic_directions_bike" type="drawable">@drawable/ic_directions_bike</item>
+     <item name="ic_attach_money" type="drawable">@drawable/ic_attach_money</item>
+
+     <item name="ic_pin_drop" type="drawable">@drawable/ic_pin_drop</item>
+     <item name="ic_access_alarm" type="drawable">@drawable/ic_access_alarm</item>
+     <item name="ic_assignment_ind" type="drawable">@drawable/ic_assignment_ind</item>-->
 </resources>

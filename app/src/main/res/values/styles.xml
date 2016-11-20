@@ -42,10 +42,7 @@
     </style>
 
     <style name="Button.Orange" parent="Button">
-        <item name="android:textColor">@color/colorWhite</item>
         <item name="android:background">@drawable/gradient_principal</item>
-        <item name="android:paddingLeft">80dp</item>
-        <item name="android:paddingRight">80dp</item>
         <item name="android:shadowColor">@color/colorBlackAlpha</item>
         <item name="android:shadowDy">2</item>
     </style>
@@ -66,21 +63,42 @@
         <item name="android:textColorHighlight">@color/colorBlackAlpha</item>
     </style>
 
-  <!--  <style name="MenuLabelsStyle">
-        <item name="android:background">@drawable/fab_label_background</item>
-        <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:maxLines">2</item>
-        <item name="android:ellipsize">end</item>
+    <style name="LinearLayoutBackgroundAlpha">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/colorBlackAlpha2</item>
     </style>
 
-    <style name="MenuButtonsStyle">
-        <item name="fab_size">mini</item>
-        <item name="fab_showAnimation">@anim/jump_from_down</item>
-        <item name="fab_hideAnimation">@anim/jump_to_down</item>
-        <item name="fab_shadowColor">@color/colorBlackAlphaHint</item>
-        <item name="fab_colorNormal">@color/colorYellow</item>
-        <item name="fab_colorPressed">@color/colorYellow</item>
-        <item name="fab_colorRipple">@color/colorBlackAlpha</item>
-    </style>-->
+    <style name="LinearLayoutBackgroundNull" parent="LinearLayoutBackgroundAlpha">
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="TextViewLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:drawablePadding">5dp</item>
+    </style>
+
+    <style name="SelectableItemTheme">
+        <item name="colorControlHighlight">@color/colorBlackAlpha</item>
+    </style>
+
+    <style name="SelectableItemBackground">
+        <item name="android:theme">@style/SelectableItemTheme</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+    <style name="SelectableItemBackgroundButton" parent="Button">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:theme">@style/SelectableItemTheme</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:paddingLeft">80dp</item>
+        <item name="android:paddingRight">80dp</item>
+    </style>
 </resources>

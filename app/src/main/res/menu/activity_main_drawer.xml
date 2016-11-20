@@ -3,29 +3,33 @@
 
     <group android:checkableBehavior="none">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/pago" />
+            android:id="@+id/nav_payment"
+            android:icon="@drawable/ic_payment"
+            android:title="@string/payment" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Docos" />
+            android:id="@+id/nav_docos"
+            android:icon="@drawable/ic_travels"
+            android:title="@string/docos" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Docos gratis" />
+            android:id="@+id/nav_free_docos"
+            android:icon="@drawable/ic_share"
+            android:title="@string/free_docos" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_promotions"
+            android:icon="@drawable/ic_card_giftcard"
+            android:title="@string/promotions" />
 
         <item
-            android:id="@+id/nav_share"
-            android:icon="@drawable/ic_menu_share"
-            android:title="Share" />
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_help_outline"
+            android:title="@string/help" />
         <item
-            android:id="@+id/nav_send"
-            android:icon="@drawable/ic_menu_send"
-            android:title="Send" />
+            android:id="@+id/nav_driver_doco"
+            android:icon="@drawable/ic_helmet_menu"
+            android:title="@string/driver_doco" />
+        <item
+            android:id="@+id/nav_configuration"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/setting"/>
     </group>
 </menu>
