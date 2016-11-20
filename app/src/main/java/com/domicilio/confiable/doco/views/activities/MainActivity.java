@@ -19,8 +19,11 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.domicilio.confiable.doco.R;
+import com.domicilio.confiable.doco.util.DeviceDimensionsHelper;
+import com.domicilio.confiable.doco.util.Utilities;
 import com.domicilio.confiable.doco.views.fragments.MapsFragment;
 
 
@@ -57,7 +60,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setTitle("");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -69,8 +71,19 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View hView =  navigationView.getHeaderView(0);
+        //View hView =  navigationView.inflateHeaderView(R.layout.nav_header_main);
+        ImageView profile_image_nav = (ImageView) hView.findViewById(R.id.profile_image_nav);
+        profile_image_nav.setImageDrawable(Utilities.roundedBitmapDrawable(this,R.drawable.profile,180));
+
+        ImageView profile_image_marker = (ImageView) findViewById(R.id.profile_image_marker);
+        profile_image_marker.setImageDrawable(Utilities.roundedBitmapDrawable(this,R.drawable.profile,140));
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_fragment, new MapsFragment()).commit();
+
+        marginX_fab = (int) (DeviceDimensionsHelper.getDisplayWidth(this) * 0.25);
+        marginY_fab = (int) (DeviceDimensionsHelper.getDisplayHeight(this) * 0.03);
 
         //Floating Action Buttons
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -94,15 +107,6 @@ public class MainActivity extends AppCompatActivity
         fab1.setOnClickListener(this);
         fab2.setOnClickListener(this);
         fab3.setOnClickListener(this);
-
-        //Calculate metrics
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int screenWidth = displaymetrics.widthPixels;
-        int screenHeight = displaymetrics.heightPixels;
-
-        marginX_fab = (int) (screenWidth * 0.25);
-        marginY_fab = (int) (screenHeight * 0.03);
     }
 
     @Override
@@ -161,17 +165,19 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_payment) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_docos) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_free_docos) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_promotions) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_help) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_driver_doco) {
+
+        } else if (id == R.id.nav_configuration) {
 
         }
 
@@ -199,6 +205,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.fab_2:
                 Intent intent = new Intent(MainActivity.this, ListDriverActivity.class);
                 startActivity(intent);
+                finish();
                 hideFAB();
                 FAB_Status = false;
                 break;

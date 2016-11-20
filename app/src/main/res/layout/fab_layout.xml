@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_shopping_cart_black"
+        android:src="@drawable/ic_shopping_cart"
         android:visibility="invisible"
         app:backgroundTint="@color/colorYellow"/>
 
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_directions_bike_black"
+        android:src="@drawable/ic_directions_bike"
         android:visibility="invisible"
         app:backgroundTint="@color/colorYellow"/>
 
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_attach_money_black"
+        android:src="@drawable/ic_attach_money"
         android:visibility="invisible"
         app:backgroundTint="@color/colorYellow"/>
 </FrameLayout>

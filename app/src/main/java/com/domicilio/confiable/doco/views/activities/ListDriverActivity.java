@@ -1,6 +1,7 @@
 package com.domicilio.confiable.doco.views.activities;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,10 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.domicilio.confiable.doco.R;
-import com.domicilio.confiable.doco.views.fragments.IFragmentListener;
-import com.domicilio.confiable.doco.views.fragments.ListDriverFragment;
+import com.domicilio.confiable.doco.views.fragments.DriverAvaibleFragment;
 
-public class ListDriverActivity extends AppCompatActivity implements IFragmentListener, View.OnClickListener {
+public class ListDriverActivity extends AppCompatActivity implements View.OnClickListener, FragmentManager.OnBackStackChangedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,13 @@ public class ListDriverActivity extends AppCompatActivity implements IFragmentLi
 
         toolbar.setNavigationOnClickListener(this);
 
-        gotoFragment();
+        //Maneja la transicion entre fragments y crea una pila de fragment
+        //getSupportFragmentManager().addOnBackStackChangedListener(this);
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container,new DriverAvaibleFragment());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -39,24 +45,17 @@ public class ListDriverActivity extends AppCompatActivity implements IFragmentLi
             //Sacamos de la pila el ultimo elemento (ir al fragment anterior)
             getSupportFragmentManager().popBackStackImmediate();
 
-            if(getSupportFragmentManager().getBackStackEntryCount()==1){
-                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                getSupportActionBar().setHomeButtonEnabled(false);
-            }else {
+            if(getSupportFragmentManager().getBackStackEntryCount()!=1){
                 super.onBackPressed();
             }
         }else {
             Intent intent = new Intent(this,MainActivity.class);
             startActivity(intent);
-            //finish();
+            finish();
         }
     }
 
     @Override
-    public void gotoFragment() {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container,new ListDriverFragment());
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+    public void onBackStackChanged() {
     }
 }

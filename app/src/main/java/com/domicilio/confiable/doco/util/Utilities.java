@@ -5,10 +5,21 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.domicilio.confiable.doco.R;
 
@@ -56,5 +67,44 @@ public class Utilities {
         } catch (Exception e) {
             Log.e("", "showNotification", e);
         }
+    }
+
+    public static Bitmap getMarkerBitmapFromView(Context context, int resId) {
+
+        View customMarkerView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.view_photo_marker, null);
+        ImageView markerImageView = (ImageView) customMarkerView.findViewById(R.id.profile_image_marker);
+
+        markerImageView.setImageDrawable(roundedBitmapDrawable(context,resId,90));
+
+        customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        customMarkerView.layout(0, 0, customMarkerView.getMeasuredWidth(), customMarkerView.getMeasuredHeight());
+        customMarkerView.buildDrawingCache();
+
+        Bitmap returnedBitmap = Bitmap.createBitmap(customMarkerView.getMeasuredWidth(), customMarkerView.getMeasuredHeight(),
+                Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(returnedBitmap);
+        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN);
+
+        Drawable drawable = customMarkerView.getBackground();
+
+        if (drawable != null)
+            drawable.draw(canvas);
+
+        customMarkerView.draw(canvas);
+        return returnedBitmap;
+    }
+
+    public static RoundedBitmapDrawable roundedBitmapDrawable(Context context, int resId, int size){
+        //extraemos el drawable en un bitmap
+        Drawable originalDrawable = context.getResources().getDrawable(resId);
+        Bitmap originalBitmap = ((BitmapDrawable) originalDrawable).getBitmap();
+        originalBitmap = BitmapScaler.strechToFill(originalBitmap,size,size);
+        //creamos el drawable redondeado
+        RoundedBitmapDrawable roundedDrawable = RoundedBitmapDrawableFactory.create(context.getResources(), originalBitmap);
+        //asignamos el CornerRadius
+        roundedDrawable.setCornerRadius(originalBitmap.getHeight());
+
+        return  roundedDrawable;
     }
 }

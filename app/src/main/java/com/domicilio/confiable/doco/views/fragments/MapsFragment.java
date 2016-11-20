@@ -108,7 +108,6 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
             mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                 @Override
                 public void onMapClick(LatLng latLng) {
-                   // Toast.makeText(getActivity(), "CLICK "+"X: Y: ", Toast.LENGTH_SHORT).show();
                     if(mainActivity.FAB_Status){
                         mainActivity.hideFAB();
                         mainActivity.FAB_Status = false;
@@ -127,8 +126,8 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
             });
 
             /** Estas dos lineas se descomentan para usar el api de google*/
-            buildGoogleApiClient();
-            mGoogleApiClient.connect();
+          //  buildGoogleApiClient();
+          //  mGoogleApiClient.connect();
         }
     }
 
@@ -137,9 +136,9 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
     public void refreshMap(Marker marker) {
         mGoogleMap.clear();
 
-        /*LatLng location = new LatLng(marker.getLat(), marker.getLng());
+        LatLng location = new LatLng(marker.getLat(), marker.getLng());
         //     mMap.addMarker(new MarkerOptions().position(location).title(marker.getName()));
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15.0f));*/
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15.0f));
     }
 
 
@@ -220,25 +219,6 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
 
         //If you only need one location, unregister the listener
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-    }
-
-    private Bitmap getMarkerBitmapFromView(int resId) {
-
-        View customMarkerView = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.view_photo_marker, null);
-        ImageView markerImageView = (ImageView) customMarkerView.findViewById(R.id.profile_image);
-        markerImageView.setImageResource(resId);
-        customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        customMarkerView.layout(0, 0, customMarkerView.getMeasuredWidth(), customMarkerView.getMeasuredHeight());
-        customMarkerView.buildDrawingCache();
-        Bitmap returnedBitmap = Bitmap.createBitmap(customMarkerView.getMeasuredWidth(), customMarkerView.getMeasuredHeight(),
-                Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(returnedBitmap);
-        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN);
-        Drawable drawable = customMarkerView.getBackground();
-        if (drawable != null)
-            drawable.draw(canvas);
-        customMarkerView.draw(canvas);
-        return returnedBitmap;
     }
 
 }

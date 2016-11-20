@@ -129,14 +129,15 @@
                 android:layout_weight="0"
                 android:gravity="center">
 
-                <com.balysv.materialripple.MaterialRippleLayout
-                    style="@style/RippleView"
-                    app:mrl_rippleColor="@color/colorBlackAlpha">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Button.Orange">
                     <Button
                         android:id="@+id/btn_register_me"
-                        style="@style/Button.Orange"
+                        style="@style/SelectableItemBackgroundButton"
                         android:text="@string/registrar" />
-                </com.balysv.materialripple.MaterialRippleLayout>
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
