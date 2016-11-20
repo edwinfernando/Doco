@@ -66,7 +66,7 @@
         <item name="android:textColorHighlight">@color/colorBlackAlpha</item>
     </style>
 
-    <style name="MenuLabelsStyle">
+  <!--  <style name="MenuLabelsStyle">
         <item name="android:background">@drawable/fab_label_background</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">14sp</item>
@@ -82,5 +82,5 @@
         <item name="fab_colorNormal">@color/colorYellow</item>
         <item name="fab_colorPressed">@color/colorYellow</item>
         <item name="fab_colorRipple">@color/colorBlackAlpha</item>
-    </style>
+    </style>-->
 </resources>

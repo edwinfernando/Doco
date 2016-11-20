@@ -1,38 +1,55 @@
 package com.domicilio.confiable.doco.views.activities;
 
-import android.animation.Animator;
+import android.content.Intent;
 import android.os.Bundle;
-
-import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.animation.AnimatorListenerCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 
 import com.domicilio.confiable.doco.R;
 import com.domicilio.confiable.doco.views.fragments.MapsFragment;
-import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    public static FloatingActionMenu menuYellow;
-  //  private List<FloatingActionMenu> menus = new ArrayList<FloatingActionMenu>();
-  //  private Handler mUiHandler = new Handler();
+    FloatingActionButton fab;
+    FloatingActionButton fab1;
+    FloatingActionButton fab2;
+    FloatingActionButton fab3;
+
+    public boolean FAB_Status = false;
+
+    //Animations
+    Animation show_fab;
+    Animation hide_fab;
+
+    Animation show_fab_1;
+    Animation hide_fab_1;
+    Animation show_fab_2;
+    Animation hide_fab_2;
+    Animation show_fab_3;
+    Animation hide_fab_3;
+
+    int marginX_fab, marginY_fab;
+
+    FrameLayout.LayoutParams layoutParams;
+    FrameLayout.LayoutParams layoutParams2;
+    FrameLayout.LayoutParams layoutParams3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +60,6 @@ public class MainActivity extends AppCompatActivity
 
         getSupportActionBar().setTitle("");
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -53,60 +69,40 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-       /* FloatingSearchView floatingSearchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
-        floatingSearchView.setOnQueryChangeListener(this);*/
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_fragment, new MapsFragment()).commit();
 
-        menuYellow = (FloatingActionMenu) findViewById(R.id.menu_yellow);
+        //Floating Action Buttons
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab1 = (FloatingActionButton) findViewById(R.id.fab_1);
+        fab2 = (FloatingActionButton) findViewById(R.id.fab_2);
+        fab3 = (FloatingActionButton) findViewById(R.id.fab_3);
 
-        final FloatingActionButton fab_conductores = (FloatingActionButton) findViewById(R.id.fab_conductores);
-        fab_conductores.setOnClickListener(this);
+        //Animations
+        show_fab = AnimationUtils.loadAnimation(getApplication(), R.anim.show_from_bottom);
+        hide_fab = AnimationUtils.loadAnimation(getApplication(), R.anim.hide_to_bottom);
 
+        show_fab_1 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab1_show);
+        hide_fab_1 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab1_hide);
+        show_fab_2 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab2_show);
+        hide_fab_2 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab2_hide);
+        show_fab_3 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab3_show);
+        hide_fab_3 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab3_hide);
 
-        FloatingActionButton fab_pedidos = (FloatingActionButton) findViewById(R.id.fab_pedidos);
-        fab_pedidos.setOnClickListener(this);
+        //OnClick
+        fab.setOnClickListener(this);
+        fab1.setOnClickListener(this);
+        fab2.setOnClickListener(this);
+        fab3.setOnClickListener(this);
 
-      /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Pide tú doco", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+        //Calculate metrics
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int screenWidth = displaymetrics.widthPixels;
+        int screenHeight = displaymetrics.heightPixels;
 
-        menuYellow.setAlpha(0.9f);
-
-        menuYellow.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
-            @Override
-            public void onMenuToggle(boolean opened) {
-                if (opened) {
-                    menuYellow.setAlpha(1f);
-                } else {
-                    menuYellow.setAlpha(0.9f);
-                }
-            }
-        });
-
-       /* menus.add(menuYellow);
-        menuYellow.hideMenuButton(false);
-
-        //Step 4
-        int delay = 400;
-        for (final FloatingActionMenu menu : menus) {
-            mUiHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    menu.showMenuButton(true);
-                }
-            }, delay);
-            delay += 150;
-        }*/
-
-        menuYellow.setClosedOnTouchOutside(true);
-
+        marginX_fab = (int) (screenWidth * 0.25);
+        marginY_fab = (int) (screenHeight * 0.03);
     }
 
     @Override
@@ -114,11 +110,27 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } if(menuYellow.isOpened()) {
-            menuYellow.close(true);
-        }else {
+        } else if (FAB_Status) {
+            hideFAB();
+            FAB_Status = false;
+        } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_UP:
+                if (FAB_Status) {
+                    hideFAB();
+                    FAB_Status = false;
+                }
+                break;
+        }
+
+        return super.onTouchEvent(event);
     }
 
     @Override
@@ -171,10 +183,83 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fab_conductores:
+            case R.id.fab:
+                if (!FAB_Status) {
+                    //Display FAB menu
+                    expandFAB();
+                    FAB_Status = true;
+                } else {
+                    //Close FAB menu
+                    hideFAB();
+                    FAB_Status = false;
+                }
                 break;
-            case R.id.fab_pedidos:
+            case R.id.fab_1:
+                break;
+            case R.id.fab_2:
+                Intent intent = new Intent(MainActivity.this, ListDriverActivity.class);
+                startActivity(intent);
+                hideFAB();
+                FAB_Status = false;
+                break;
+            case R.id.fab_3:
                 break;
         }
+    }
+
+    private void expandFAB() {
+        layoutParams = (FrameLayout.LayoutParams) fab1.getLayoutParams();
+        layoutParams2 = (FrameLayout.LayoutParams) fab2.getLayoutParams();
+        layoutParams3 = (FrameLayout.LayoutParams) fab3.getLayoutParams();
+
+        layoutParams.rightMargin += marginX_fab;
+        layoutParams2.bottomMargin += marginY_fab;
+        layoutParams3.leftMargin += marginX_fab;
+
+        fab.startAnimation(hide_fab);
+        fab.setClickable(false);
+
+        //Floating Action Button 1
+        fab1.setLayoutParams(layoutParams);
+        fab1.startAnimation(show_fab_1);
+        fab1.setClickable(true);
+
+        //Floating Action Button 2
+        fab2.setLayoutParams(layoutParams2);
+        fab2.startAnimation(show_fab_2);
+        fab2.setClickable(true);
+
+        //Floating Action Button 3
+        fab3.setLayoutParams(layoutParams3);
+        fab3.startAnimation(show_fab_3);
+        fab3.setClickable(true);
+    }
+
+    public void hideFAB() {
+        layoutParams = (FrameLayout.LayoutParams) fab1.getLayoutParams();
+        layoutParams2 = (FrameLayout.LayoutParams) fab2.getLayoutParams();
+        layoutParams3 = (FrameLayout.LayoutParams) fab3.getLayoutParams();
+
+        layoutParams.rightMargin -= marginX_fab;
+        layoutParams2.bottomMargin -= marginY_fab;
+        layoutParams3.leftMargin -= marginX_fab;
+
+        fab.startAnimation(show_fab);
+        fab.setClickable(true);
+
+        //Floating Action Button 1
+        fab1.setLayoutParams(layoutParams);
+        fab1.startAnimation(hide_fab_1);
+        fab1.setClickable(false);
+
+        //Floating Action Button 2
+        fab2.setLayoutParams(layoutParams2);
+        fab2.startAnimation(hide_fab_2);
+        fab2.setClickable(false);
+
+        //Floating Action Button 3
+        fab3.setLayoutParams(layoutParams3);
+        fab3.startAnimation(hide_fab_3);
+        fab3.setClickable(false);
     }
 }

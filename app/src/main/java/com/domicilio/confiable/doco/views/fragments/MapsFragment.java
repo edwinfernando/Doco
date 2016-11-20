@@ -13,6 +13,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -43,7 +44,7 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
 
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
-
+    MainActivity mainActivity;
 
     private GoogleMap mGoogleMap;
     private IMapsPresenter presenter;
@@ -102,9 +103,32 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
                 layoutParams.setMargins(0, 0, 30, 220);
             }
 
+            mainActivity = (MainActivity) getActivity();
+
+            mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                   // Toast.makeText(getActivity(), "CLICK "+"X: Y: ", Toast.LENGTH_SHORT).show();
+                    if(mainActivity.FAB_Status){
+                        mainActivity.hideFAB();
+                        mainActivity.FAB_Status = false;
+                    }
+                }
+            });
+
+            mGoogleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+                @Override
+                public void onCameraMove() {
+                    if(mainActivity.FAB_Status){
+                        mainActivity.hideFAB();
+                        mainActivity.FAB_Status = false;
+                    }
+                }
+            });
+
             /** Estas dos lineas se descomentan para usar el api de google*/
-         //   buildGoogleApiClient();
-       //     mGoogleApiClient.connect();
+            buildGoogleApiClient();
+            mGoogleApiClient.connect();
         }
     }
 
@@ -113,9 +137,9 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
     public void refreshMap(Marker marker) {
         mGoogleMap.clear();
 
-        LatLng location = new LatLng(marker.getLat(), marker.getLng());
+        /*LatLng location = new LatLng(marker.getLat(), marker.getLng());
         //     mMap.addMarker(new MarkerOptions().position(location).title(marker.getName()));
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15.0f));
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15.0f));*/
     }
 
 
@@ -189,7 +213,7 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
 
         //zoom to current position:
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(latLng).zoom(14).build();
+                .target(latLng).zoom(16).build();
 
         mGoogleMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(cameraPosition));
@@ -198,7 +222,7 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
-    private Bitmap getMarkerBitmapFromView(int resId)  {
+    private Bitmap getMarkerBitmapFromView(int resId) {
 
         View customMarkerView = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.view_photo_marker, null);
         ImageView markerImageView = (ImageView) customMarkerView.findViewById(R.id.profile_image);
@@ -216,4 +240,5 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
         customMarkerView.draw(canvas);
         return returnedBitmap;
     }
+
 }

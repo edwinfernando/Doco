@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<translate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:interpolator="@android:interpolator/accelerate_quint"
-    android:fromYDelta="0"
-    android:toYDelta="30%p"
-    android:duration="200" />
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillAfter="true">
+
+    <translate
+        android:duration="1000"
+        android:fromYDelta="0"
+        android:interpolator="@android:interpolator/accelerate_quint"
+        android:toYDelta="30%p" />
+
+    <!--Fade Out-->
+    <alpha
+        android:duration="2000"
+        android:fromAlpha="1.0"
+        android:interpolator="@android:anim/accelerate_interpolator"
+        android:toAlpha="0.0"></alpha>
+</set>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "375755644270",
+    "firebase_url": "https://endless-bounty-149319.firebaseio.com",
+    "project_id": "endless-bounty-149319",
+    "storage_bucket": "endless-bounty-149319.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375755644270:android:df1ff0cba61c28a6",
+        "android_client_info": {
+          "package_name": "com.domicilio.confiable.doco"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375755644270-u353tnbos2bl1iqbjln7i917c0ep0u6j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.domicilio.confiable.doco",
+            "certificate_hash": "A7044E97502AC18F3C8B5CA6247315D175A7D2ED"
+          }
+        },
+        {
+          "client_id": "375755644270-9qar8lb0pmg8k6nlihqcjk7lf81l4fll.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAixNSCjjJO9KfWaAb98JyxK__OQAbNkYs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375755644270-9qar8lb0pmg8k6nlihqcjk7lf81l4fll.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
