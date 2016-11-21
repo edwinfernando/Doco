@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -20,6 +21,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.domicilio.confiable.doco.R;
 import com.domicilio.confiable.doco.util.DeviceDimensionsHelper;
@@ -74,10 +76,12 @@ public class MainActivity extends AppCompatActivity
         View hView =  navigationView.getHeaderView(0);
         //View hView =  navigationView.inflateHeaderView(R.layout.nav_header_main);
         ImageView profile_image_nav = (ImageView) hView.findViewById(R.id.profile_image_nav);
-        profile_image_nav.setImageDrawable(Utilities.roundedBitmapDrawable(this,R.drawable.profile,180));
+        profile_image_nav.setImageDrawable(Utilities.roundedBitmapDrawable(this,R.drawable.profile,
+                (int) (DeviceDimensionsHelper.getDisplayWidth(this) * getResources().getDimension(R.dimen.size_photo_nav))));
 
         ImageView profile_image_marker = (ImageView) findViewById(R.id.profile_image_marker);
-        profile_image_marker.setImageDrawable(Utilities.roundedBitmapDrawable(this,R.drawable.profile,140));
+        profile_image_marker.setImageDrawable(Utilities.roundedBitmapDrawable(this,R.drawable.profile,
+                (int) (DeviceDimensionsHelper.getDisplayWidth(this) * getResources().getDimension(R.dimen.size_photo_market_map))));
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_fragment, new MapsFragment()).commit();

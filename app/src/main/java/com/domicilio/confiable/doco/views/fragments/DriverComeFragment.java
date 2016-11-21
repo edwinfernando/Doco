@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.domicilio.confiable.doco.R;
+import com.domicilio.confiable.doco.util.DeviceDimensionsHelper;
 import com.domicilio.confiable.doco.util.Utilities;
 
 public class DriverComeFragment extends Fragment {
@@ -25,7 +26,8 @@ public class DriverComeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_driver_come, container, false);
         driver_come_image = (ImageView) view.findViewById(R.id.driver_come_image);
-        driver_come_image.setImageDrawable(Utilities.roundedBitmapDrawable(getContext(),R.drawable.profile,180));
+        driver_come_image.setImageDrawable(Utilities.roundedBitmapDrawable(getContext(),R.drawable.profile,
+                (int) (DeviceDimensionsHelper.getDisplayWidth(view.getContext()) * getResources().getDimension(R.dimen.size_photo_item_driver_avaible))));
         // Inflate the layout for this fragment
         return view;
     }

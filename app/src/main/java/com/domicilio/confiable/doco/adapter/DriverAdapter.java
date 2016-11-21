@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.domicilio.confiable.doco.R;
 import com.domicilio.confiable.doco.model.Driver;
 import com.domicilio.confiable.doco.presenters.fragments.IDriverAvaiblePresenter;
+import com.domicilio.confiable.doco.util.DeviceDimensionsHelper;
 import com.domicilio.confiable.doco.util.Utilities;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverHold
 
     @Override
     public DriverAdapter.DriverHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.view_item_conductor_disponible, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.view_item_driver_avaible, parent, false);
         DriverHolder historialHolder = new DriverHolder(view);
         return historialHolder;
     }
@@ -48,7 +49,8 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverHold
         holder.fab_driver_profile.setOnClickListener(this);
 
         holder.view.setOnClickListener(this);
-        holder. driver_avaible_image.setImageDrawable(Utilities.roundedBitmapDrawable(context,R.drawable.profile,160));
+        holder. driver_avaible_image.setImageDrawable(Utilities.roundedBitmapDrawable(context,R.drawable.profile,
+                (int) (DeviceDimensionsHelper.getDisplayWidth(context) * context.getResources().getDimension(R.dimen.size_photo_item_driver_avaible))));
     }
 
     @Override

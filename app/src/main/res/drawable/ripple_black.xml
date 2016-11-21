@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:color="@color/colorBlackAlpha2"
-    tools:ignore="NewApi" />
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/colorBlackAlpha" android:state_focused="true" />
+    <item android:drawable="@color/colorBlackAlpha2" android:state_pressed="false" />
+    <item android:drawable="@android:color/transparent" />
+</selector>

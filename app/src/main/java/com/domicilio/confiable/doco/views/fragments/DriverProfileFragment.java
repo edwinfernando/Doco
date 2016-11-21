@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.domicilio.confiable.doco.R;
+import com.domicilio.confiable.doco.util.DeviceDimensionsHelper;
 import com.domicilio.confiable.doco.util.Utilities;
 
 
@@ -25,7 +26,8 @@ public class DriverProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_driver_profile, container, false);
 
         driver_profile_image = (ImageView) view.findViewById(R.id.driver_profile_image);
-        driver_profile_image.setImageDrawable(Utilities.roundedBitmapDrawable(getContext(),R.drawable.profile,360));
+        driver_profile_image.setImageDrawable(Utilities.roundedBitmapDrawable(getContext(),R.drawable.profile,
+                (int) (DeviceDimensionsHelper.getDisplayWidth(view.getContext()) * getResources().getDimension(R.dimen.size_photo_profile))));
         // Inflate the layout for this fragment
         return view;
     }
