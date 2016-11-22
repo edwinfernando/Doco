@@ -86,13 +86,23 @@
             android:text="@string/recordar"
             android:textColor="@color/colorWhite" />
 
-        <com.balysv.materialripple.MaterialRippleLayout style="@style/RippleView">
+      <!--  <com.balysv.materialripple.MaterialRippleLayout style="@style/RippleView">
 
             <Button
                 android:id="@+id/btn_start_session"
                 style="@style/Button.Dark"
                 android:text="@string/iniciar_sesion" />
-        </com.balysv.materialripple.MaterialRippleLayout>
+        </com.balysv.materialripple.MaterialRippleLayout>-->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Button.Dark">
+            <Button
+                android:id="@+id/btn_start_session"
+                style="@style/SelectableItemBackgroundButtonDark"
+                android:text="@string/iniciar_sesion" />
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -115,14 +125,27 @@
             android:text="@string/deseo_registrarme"
             android:textColor="@color/colorWhite" />
 
-        <com.balysv.materialripple.MaterialRippleLayout style="@style/RippleView">
+        <!--<com.balysv.materialripple.MaterialRippleLayout style="@style/RippleView">
 
             <Button
                 android:id="@+id/btn_register"
                 style="@style/Button.Dark"
                 android:layout_weight="0.9"
                 android:text="@string/registrate" />
-        </com.balysv.materialripple.MaterialRippleLayout>
+        </com.balysv.materialripple.MaterialRippleLayout>-->
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Button.Dark">
+                <Button
+                    android:id="@+id/btn_register"
+                    style="@style/SelectableItemBackgroundButtonDark"
+                    android:layout_weight="0.9"
+                    android:text="@string/registrate" />
+            </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

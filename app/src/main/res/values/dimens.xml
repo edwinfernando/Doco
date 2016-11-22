@@ -8,4 +8,9 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="actionBarSize">80dp</dimen>
     <dimen name="search_view_inset">5dp</dimen>
+
+    <dimen name="size_photo_nav">0.17px</dimen>
+    <dimen name="size_photo_market_map">0.13px</dimen>
+    <dimen name="size_photo_item_driver_avaible">0.17px</dimen>
+    <dimen name="size_photo_profile">0.34px</dimen>
 </resources>

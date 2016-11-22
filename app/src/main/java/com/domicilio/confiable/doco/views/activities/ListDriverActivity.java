@@ -25,7 +25,7 @@ public class ListDriverActivity extends AppCompatActivity implements View.OnClic
         toolbar.setNavigationOnClickListener(this);
 
         //Maneja la transicion entre fragments y crea una pila de fragment
-        //getSupportFragmentManager().addOnBackStackChangedListener(this);
+        getSupportFragmentManager().addOnBackStackChangedListener(this);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container,new DriverAvaibleFragment());
