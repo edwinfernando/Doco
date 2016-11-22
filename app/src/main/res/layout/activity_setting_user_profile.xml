@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_setting_user_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.domicilio.confiable.doco.views.activities.SettingUserProfileActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/fondo"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_actionbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorBlackAlpha2"
+                android:orientation="horizontal"
+                android:paddingRight="5dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/profile_image_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:textColorHint="@color/colorBlackAlphaHint"
+                        app:hintTextAppearance="@style/FloatingLabelBlack">
+
+                        <EditText
+                            android:id="@+id/edt_user_name_profile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/name_user"
+                            android:inputType="text"
+                            android:textColor="@color/colorBlack"
+                            android:theme="@style/EditTextBlack" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:textColorHint="@color/colorBlackAlphaHint"
+                        app:hintTextAppearance="@style/FloatingLabelBlack">
+
+                        <EditText
+                            android:id="@+id/edt_user_last_name_profile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/last_name_user"
+                            android:inputType="text"
+                            android:textColor="@color/colorBlack"
+                            android:theme="@style/EditTextBlack" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:textColorHint="@color/colorBlackAlphaHint"
+                        app:hintTextAppearance="@style/FloatingLabelBlack">
+
+                        <EditText
+                            android:id="@+id/edt_user_number_movil_profile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/movil_user"
+                            android:inputType="text"
+                            android:textColor="@color/colorBlack"
+                            android:theme="@style/EditTextBlack" />
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorBlackAlpha2"
+                android:orientation="vertical"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textColorHint="@color/colorBlackAlphaHint"
+                    app:hintTextAppearance="@style/FloatingLabelBlack">
+
+                    <EditText
+                        android:id="@+id/edt_user_profile_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/email"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/colorBlack"
+                        android:theme="@style/EditTextBlack" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textColorHint="@color/colorBlackAlphaHint"
+                    app:hintTextAppearance="@style/FloatingLabelBlack"
+                    app:passwordToggleTint="@color/colorBlackAlpha">
+
+                    <EditText
+                        android:id="@+id/edt_user_profile_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/contrasena"
+                        android:inputType="textPassword"
+                        android:textColor="@color/colorBlack"
+                        android:theme="@style/EditTextBlack" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorBlackAlpha2"
+                android:orientation="vertical"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:text="@string/my_locations" />
+                </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textColorHint="@color/colorBlackAlphaHint"
+                    app:hintTextAppearance="@style/FloatingLabelBlack">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edt_user_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_home"
+                        android:drawablePadding="5dp"
+                        android:drawableStart="@drawable/ic_home"
+                        android:drawableTint="@color/colorBlackAlphaHint"
+                        android:hint="@string/home"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPostalAddress"
+                        android:minWidth="350dp"
+                        android:textColor="@color/colorBlack"
+                        android:textCursorDrawable="@null"
+                        android:theme="@style/EditTextBlack" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textColorHint="@color/colorBlackAlphaHint"
+                    app:hintTextAppearance="@style/FloatingLabelBlack">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edt_user_office"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_office"
+                        android:drawablePadding="5dp"
+                        android:drawableStart="@drawable/ic_office"
+                        android:drawableTint="@color/colorBlackAlphaHint"
+                        android:hint="@string/office"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPostalAddress"
+                        android:minWidth="350dp"
+                        android:textColor="@color/colorBlack"
+                        android:textCursorDrawable="@null"
+                        android:theme="@style/EditTextBlack" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0"
+                android:gravity="center">
+
+                <LinearLayout
+                    style="@style/Button.Orange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/btn_register_me"
+                        style="@style/SelectableItemBackgroundButton"
+                        android:text="@string/accept" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

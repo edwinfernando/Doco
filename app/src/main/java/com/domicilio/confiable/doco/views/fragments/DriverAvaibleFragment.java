@@ -38,15 +38,15 @@ public class DriverAvaibleFragment extends Fragment implements IDriverAvaibleVie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_list_drives, container, false);
         // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_list_drives, container, false);
+ 
         linear_layout_manager = new LinearLayoutManager(getContext());
         LDrivers lDrivers = new LDrivers();
 
         list_driver_available = (RecyclerView) view.findViewById(R.id.list_drivers_avaible);
 
-        // lDrivers.addDriver("12344","Edwin Fernando Muñoz","3137649407",70);
+        //lDrivers.addDriver("12344","Edwin Fernando Muñoz","3137649407",70);
         driver_list = lDrivers.getListDrivers();
         driverAvaiblePresenter = new DriverAvaiblePresenter(this, getActivity());
 

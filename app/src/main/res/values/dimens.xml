@@ -13,4 +13,5 @@
     <dimen name="size_photo_market_map">0.13px</dimen>
     <dimen name="size_photo_item_driver_avaible">0.17px</dimen>
     <dimen name="size_photo_profile">0.34px</dimen>
+    <dimen name="size_photo_profile_setting">0.22px</dimen>
 </resources>
