@@ -46,5 +46,11 @@
     <string name="wait_time">Tiempo de espera:</string>
     <string name="come_for_me">Ven por mí</string>
     <string name="distance">Distancia:</string>
+    <string name="name_user">nombre</string>
+    <string name="last_name_user">apellido</string>
+    <string name="movil_user">MÓVIL</string>
+    <string name="my_locations">MÍS UBICACIONES</string>
+    <string name="home">casa</string>
+    <string name="office">oficina</string>
 
 </resources>
