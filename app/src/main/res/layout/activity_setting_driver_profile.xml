@@ -38,7 +38,49 @@
                 android:orientation="horizontal"
                 android:paddingRight="5dp">
 
-                <include layout="@layout/image_profile"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                    <include layout="@layout/image_profile"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_score_doco" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_score_doco" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_score_doco" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_score_doco" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_score_doco" />
+                    </LinearLayout>
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -185,29 +227,8 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
-                        android:text="@string/my_locations" />
+                        android:text="@string/vehicle" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|right"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/circle_blue"
-                        android:shadowColor="#000000"
-                        android:shadowDx="1"
-                        android:shadowDy="1"
-                        android:shadowRadius="1"
-                        android:elevation="5dp">
-
-                        <ImageButton
-                            android:id="@+id/fab_driver_profile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="2dp"
-                            android:src="@drawable/ic_add"
-                            android:tint="@color/colorWhite"
-                            style="@style/SelectableItemBackground"/>
-                    </LinearLayout>
                 </FrameLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -221,11 +242,11 @@
                         android:id="@+id/edt_user_home"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_home"
+                        android:drawableLeft="@drawable/ic_motorbike"
                         android:drawablePadding="5dp"
-                        android:drawableStart="@drawable/ic_home"
+                        android:drawableStart="@drawable/ic_motorbike"
                         android:drawableTint="@color/colorBlackAlphaHint"
-                        android:hint="@string/home"
+                        android:hint="@string/vehicle_model"
                         android:imeOptions="actionNext"
                         android:inputType="textPostalAddress"
                         android:minWidth="350dp"
@@ -245,11 +266,11 @@
                         android:id="@+id/edt_user_office"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_office"
+                        android:drawableLeft="@drawable/ic_license_plate"
                         android:drawablePadding="5dp"
-                        android:drawableStart="@drawable/ic_office"
+                        android:drawableStart="@drawable/ic_license_plate"
                         android:drawableTint="@color/colorBlackAlphaHint"
-                        android:hint="@string/office"
+                        android:hint="@string/license_plate"
                         android:imeOptions="actionDone"
                         android:inputType="textPostalAddress"
                         android:minWidth="350dp"

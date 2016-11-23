@@ -53,5 +53,7 @@
     <string name="office">oficina</string>
     <string name="delete_account">Eliminar cuenta</string>
     <string name="sign_off">Cerrar sesión</string>
+    <string name="vehicle">VEHICULO</string>
+    <string name="vehicle_model">model</string>
 
 </resources>
