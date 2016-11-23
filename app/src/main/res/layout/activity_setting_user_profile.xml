@@ -5,7 +5,12 @@
     android:id="@+id/activity_setting_user_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="com.domicilio.confiable.doco.views.activities.SettingUserProfileActivity">
+
+    <requestFocus />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,19 +38,7 @@
                 android:orientation="horizontal"
                 android:paddingRight="5dp">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:id="@+id/profile_image_user"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1" />
-                </LinearLayout>
+                <include layout="@layout/image_profile"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -87,23 +80,41 @@
                             android:theme="@style/EditTextBlack" />
                     </android.support.design.widget.TextInputLayout>
 
-                    <android.support.design.widget.TextInputLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:textColorHint="@color/colorBlackAlphaHint"
-                        app:hintTextAppearance="@style/FloatingLabelBlack">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                        <EditText
-                            android:id="@+id/edt_user_number_movil_profile"
-                            android:layout_width="match_parent"
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:hint="@string/movil_user"
-                            android:inputType="text"
-                            android:textColor="@color/colorBlack"
-                            android:theme="@style/EditTextBlack" />
-                    </android.support.design.widget.TextInputLayout>
+                            android:layout_weight="0.3"
+                            android:layout_gravity="bottom">
 
+                            <android.support.v7.widget.AppCompatSpinner
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                /><!-- bind:items="@{viewModel.spiinnerItems}"-->
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColorHint="@color/colorBlackAlphaHint"
+                            app:hintTextAppearance="@style/FloatingLabelBlack">
+
+                            <EditText
+                                android:id="@+id/edt_user_number_movil_profile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/movil_user"
+                                android:inputType="phone"
+                                android:textColor="@color/colorBlack"
+                                android:theme="@style/EditTextBlack" />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
@@ -163,7 +174,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -175,7 +186,29 @@
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:text="@string/my_locations" />
-                </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/circle_blue"
+                        android:shadowColor="#000000"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="1"
+                        android:elevation="5dp">
+
+                        <ImageButton
+                            android:id="@+id/fab_driver_profile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_add"
+                            android:tint="@color/colorWhite"
+                            style="@style/SelectableItemBackground"/>
+                    </LinearLayout>
+                </FrameLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"

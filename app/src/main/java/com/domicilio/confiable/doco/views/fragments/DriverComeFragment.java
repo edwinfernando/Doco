@@ -30,7 +30,7 @@ public class DriverComeFragment extends Fragment {
 
         driver_come_image = (ImageView) view.findViewById(R.id.driver_come_image);
         driver_come_image.setImageDrawable(Utilities.roundedBitmapDrawable(getContext(),R.drawable.profile,
-                (int) (DeviceDimensionsHelper.getDisplayWidth(view.getContext()) * getResources().getDimension(R.dimen.size_photo_item_driver_avaible))));
+                (int) (DeviceDimensionsHelper.getDisplayWidth(view.getContext()) * getResources().getDimension(R.dimen.size_photo_item_driver_available))));
 
         new SwipeDetector(view).setOnSwipeListener(new SwipeDetector.onSwipeEvent() {
             @Override

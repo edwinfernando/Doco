@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.domicilio.confiable.doco.R;
-import com.domicilio.confiable.doco.views.fragments.DriverAvaibleFragment;
+import com.domicilio.confiable.doco.views.fragments.DriverAvailableFragment;
 
 public class ListDriverActivity extends AppCompatActivity implements View.OnClickListener, FragmentManager.OnBackStackChangedListener {
 
@@ -28,7 +28,7 @@ public class ListDriverActivity extends AppCompatActivity implements View.OnClic
         getSupportFragmentManager().addOnBackStackChangedListener(this);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container,new DriverAvaibleFragment());
+        fragmentTransaction.replace(R.id.fragment_container,new DriverAvailableFragment());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }

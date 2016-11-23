@@ -1,8 +1,13 @@
 package com.domicilio.confiable.doco.views.activities;
 
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -33,5 +38,37 @@ public class SettingUserProfileActivity extends AppCompatActivity implements Vie
     @Override
     public void onClick(View view) {
         onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.clear();
+        getMenuInflater().inflate(R.menu.option_profile, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.opt_delete_account:
+
+                return true;
+            case R.id.opt_sign_off:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("");
+                //builder.setMessage(getResources().getString(R.string.desarrollado));
+                builder.show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

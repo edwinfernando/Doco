@@ -2,19 +2,19 @@ package com.domicilio.confiable.doco.presenters.fragments;
 
 import android.content.Context;
 
-import com.domicilio.confiable.doco.views.fragments.IDriverAvaibleView;
+import com.domicilio.confiable.doco.views.fragments.IDriverAvailableView;
 
 /**
  * Created by edwin on 19/11/2016.
  */
 
-public class DriverAvaiblePresenter implements IDriverAvaiblePresenter {
+public class DriverAvailablePresenter implements IDriverAvailablePresenter {
 
-    IDriverAvaibleView view;
+    IDriverAvailableView view;
 
     private Context context;
 
-    public DriverAvaiblePresenter(IDriverAvaibleView view, Context context) {
+    public DriverAvailablePresenter(IDriverAvailableView view, Context context) {
         this.view = view;
         this.context = context;
     }

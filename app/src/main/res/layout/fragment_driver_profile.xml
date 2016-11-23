@@ -43,27 +43,27 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_action_doco" />
+                    android:src="@drawable/ic_score_doco" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_action_doco" />
+                    android:src="@drawable/ic_score_doco" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_action_doco" />
+                    android:src="@drawable/ic_score_doco" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_action_doco" />
+                    android:src="@drawable/ic_score_doco" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_action_doco" />
+                    android:src="@drawable/ic_score_doco" />
             </LinearLayout>
         </LinearLayout>
 
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/circle_call"
+                android:background="@drawable/circle_green"
                 android:shadowColor="#000000"
                 android:shadowDx="1"
                 android:shadowDy="1"

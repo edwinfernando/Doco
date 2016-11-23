@@ -18,7 +18,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/driver_avaible_image"
+            android:id="@+id/driver_available_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/circle_photo"
+                android:background="@drawable/circle_orange"
                 android:shadowColor="#000000"
                 android:shadowDx="1"
                 android:shadowDy="1"

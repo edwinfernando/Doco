@@ -14,23 +14,23 @@ import com.domicilio.confiable.doco.R;
 import com.domicilio.confiable.doco.adapter.DriverAdapter;
 import com.domicilio.confiable.doco.domain.LDrivers;
 import com.domicilio.confiable.doco.model.Driver;
-import com.domicilio.confiable.doco.presenters.fragments.DriverAvaiblePresenter;
-import com.domicilio.confiable.doco.presenters.fragments.IDriverAvaiblePresenter;
+import com.domicilio.confiable.doco.presenters.fragments.DriverAvailablePresenter;
+import com.domicilio.confiable.doco.presenters.fragments.IDriverAvailablePresenter;
 
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DriverAvaibleFragment extends Fragment implements IDriverAvaibleView {
+public class DriverAvailableFragment extends Fragment implements IDriverAvailableView {
 
-    private IDriverAvaiblePresenter driverAvaiblePresenter;
+    private IDriverAvailablePresenter driverAvailablePresenter;
     private List<Driver> driver_list;
     RecyclerView list_driver_available;
 
     private LinearLayoutManager linear_layout_manager;
 
-    public DriverAvaibleFragment() {
+    public DriverAvailableFragment() {
         // Required empty public constructor
     }
 
@@ -46,11 +46,13 @@ public class DriverAvaibleFragment extends Fragment implements IDriverAvaibleVie
 
         list_driver_available = (RecyclerView) view.findViewById(R.id.list_drivers_avaible);
 
-        //lDrivers.addDriver("12344","Edwin Fernando Muñoz","3137649407",70);
-        driver_list = lDrivers.getListDrivers();
-        driverAvaiblePresenter = new DriverAvaiblePresenter(this, getActivity());
+        if (lDrivers.getListDrivers().size()<1)
+            lDrivers.addDriver("12344","Edwin Fernando Muñoz","3137649407",70);
 
-        DriverAdapter adapter = new DriverAdapter(getContext(), driver_list, driverAvaiblePresenter);
+        driver_list = lDrivers.getListDrivers();
+        driverAvailablePresenter = new DriverAvailablePresenter(this, getActivity());
+
+        DriverAdapter adapter = new DriverAdapter(getContext(), driver_list, driverAvailablePresenter);
         list_driver_available.setAdapter(adapter);
         list_driver_available.setLayoutManager(linear_layout_manager);
 

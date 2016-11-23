@@ -40,7 +40,6 @@
     <string name="soat_vehicle">Soat:</string>
     <string name="mechanical_technician">Tecno mecanica:</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="code_doco">Código doco:</string>
     <string name="doco_rate">Tarifa:</string>
     <string name="wait_time">Tiempo de espera:</string>
@@ -52,5 +51,7 @@
     <string name="my_locations">MÍS UBICACIONES</string>
     <string name="home">casa</string>
     <string name="office">oficina</string>
+    <string name="delete_account">Eliminar cuenta</string>
+    <string name="sign_off">Cerrar sesión</string>
 
 </resources>

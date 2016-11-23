@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.domicilio.confiable.doco.R;
 import com.domicilio.confiable.doco.model.Driver;
-import com.domicilio.confiable.doco.presenters.fragments.IDriverAvaiblePresenter;
+import com.domicilio.confiable.doco.presenters.fragments.IDriverAvailablePresenter;
 import com.domicilio.confiable.doco.util.DeviceDimensionsHelper;
 import com.domicilio.confiable.doco.util.Utilities;
 
@@ -23,22 +23,22 @@ import java.util.List;
 
 public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverHolder> implements View.OnClickListener {
 
-    private IDriverAvaiblePresenter driverAvaiblePresenter;
+    private IDriverAvailablePresenter driverAvailablePresenter;
 
     private List<Driver> dataSource;
     private Context context;
 
-    public DriverAdapter(Context context, List<Driver> dataSource, IDriverAvaiblePresenter driverAvaiblePresenter) {
+    public DriverAdapter(Context context, List<Driver> dataSource, IDriverAvailablePresenter driverAvaiblePresenter) {
         this.context = context;
         this.dataSource = dataSource;
-        this.driverAvaiblePresenter = driverAvaiblePresenter;
+        this.driverAvailablePresenter = driverAvaiblePresenter;
     }
 
     @Override
     public DriverAdapter.DriverHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.view_item_driver_avaible, parent, false);
-        DriverHolder historialHolder = new DriverHolder(view);
-        return historialHolder;
+        View view = LayoutInflater.from(context).inflate(R.layout.view_item_driver_available, parent, false);
+        DriverHolder driverHolder = new DriverHolder(view);
+        return driverHolder;
     }
 
     @Override
@@ -49,8 +49,8 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverHold
         holder.fab_driver_profile.setOnClickListener(this);
 
         holder.view.setOnClickListener(this);
-        holder. driver_avaible_image.setImageDrawable(Utilities.roundedBitmapDrawable(context,R.drawable.profile,
-                (int) (DeviceDimensionsHelper.getDisplayWidth(context) * context.getResources().getDimension(R.dimen.size_photo_item_driver_avaible))));
+        holder. driver_available_image.setImageDrawable(Utilities.roundedBitmapDrawable(context,R.drawable.profile,
+                (int) (DeviceDimensionsHelper.getDisplayWidth(context) * context.getResources().getDimension(R.dimen.size_photo_item_driver_available))));
     }
 
     @Override
@@ -62,10 +62,10 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverHold
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.fab_driver_profile:
-                driverAvaiblePresenter.gotoDriverProfileFragment();
+                driverAvailablePresenter.gotoDriverProfileFragment();
                 break;
             default:
-                driverAvaiblePresenter.gotoDriverComeFragment();
+                driverAvailablePresenter.gotoDriverComeFragment();
                 break;
         }
     }
@@ -75,7 +75,7 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverHold
         TextView name_driver;
         View view;
 
-        ImageView driver_avaible_image;
+        ImageView driver_available_image;
         ImageButton fab_driver_profile;
 
         public DriverHolder(View itemView) {
@@ -83,7 +83,7 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverHold
 
             this.view = itemView;
          //   conductor_profile_image = (CircleImageView) itemView.findViewById(R.id.conductor_profile_image);
-            driver_avaible_image = (ImageView) itemView.findViewById(R.id.driver_avaible_image);
+            driver_available_image = (ImageView) itemView.findViewById(R.id.driver_available_image);
             name_driver = (TextView) itemView.findViewById(R.id.name_driver);
 
             fab_driver_profile = (ImageButton) itemView.findViewById(R.id.fab_driver_profile);
