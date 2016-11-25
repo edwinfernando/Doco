@@ -55,5 +55,7 @@
     <string name="sign_off">Cerrar sesión</string>
     <string name="vehicle">VEHICULO</string>
     <string name="vehicle_model">model</string>
+    <string name="docos_free_question">¿DOCOS gratis?</string>
+    <string name="invite_your_friends">Invita a tus amigos</string>
 
 </resources>
