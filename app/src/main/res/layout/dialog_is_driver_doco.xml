@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="300dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorGray"
     android:orientation="vertical"
@@ -11,12 +11,14 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
         android:background="@color/colorBlackAlpha">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/fondo_emergente"
             android:orientation="vertical"
             android:gravity="center"
             android:padding="25dp">
@@ -24,14 +26,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/docos_free_question"
-                android:textSize="40sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/invite_your_friends"
+                android:text="@string/docos_promotions"
                 android:textSize="25sp"/>
+
         </LinearLayout>
     </LinearLayout>
 
@@ -39,13 +36,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColorHint="@color/colorBlackAlphaHint"
-        app:hintTextAppearance="@style/FloatingLabelBlack">
+        app:hintTextAppearance="@style/FloatingLabelBlack"
+        android:layout_weight="0">
 
         <EditText
             android:id="@+id/edt_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email"
+            android:hint="@string/insert_driver_code"
             android:inputType="textEmailAddress"
             android:textColor="@color/colorBlack"
             android:theme="@style/EditTextBlack" />

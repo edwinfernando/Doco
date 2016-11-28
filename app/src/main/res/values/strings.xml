@@ -57,5 +57,8 @@
     <string name="vehicle_model">model</string>
     <string name="docos_free_question">¿DOCOS gratis?</string>
     <string name="invite_your_friends">Invita a tus amigos</string>
+    <string name="docos_promotions">Ingresa el código que te  acredita como conductor DOCO.</string>
+    <string name="insert_code_doco_free">Ingresa código de invitación</string>
+    <string name="insert_driver_code">Ingresa código</string>
 
 </resources>

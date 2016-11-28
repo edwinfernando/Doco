@@ -1,10 +1,13 @@
 package com.domicilio.confiable.doco.views.activities;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -21,6 +25,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.domicilio.confiable.doco.R;
@@ -30,7 +35,7 @@ import com.domicilio.confiable.doco.views.fragments.MapsFragment;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, IMainActivityView {
 
     FloatingActionButton fab;
     FloatingActionButton fab1;
@@ -221,7 +226,8 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void expandFAB() {
+    @Override
+    public void expandFAB() {
         layoutParams = (FrameLayout.LayoutParams) fab1.getLayoutParams();
         layoutParams2 = (FrameLayout.LayoutParams) fab2.getLayoutParams();
         layoutParams3 = (FrameLayout.LayoutParams) fab3.getLayoutParams();
@@ -249,6 +255,7 @@ public class MainActivity extends AppCompatActivity
         fab3.setClickable(true);
     }
 
+    @Override
     public void hideFAB() {
         layoutParams = (FrameLayout.LayoutParams) fab1.getLayoutParams();
         layoutParams2 = (FrameLayout.LayoutParams) fab2.getLayoutParams();
@@ -275,5 +282,51 @@ public class MainActivity extends AppCompatActivity
         fab3.setLayoutParams(layoutParams3);
         fab3.startAnimation(hide_fab_3);
         fab3.setClickable(false);
+    }
+
+    @Override
+    public void deployDialogPromotions(Context context) {
+       /* final AlertDialog.Builder alerBuilder = new AlertDialog.Builder(activity);
+
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(activity.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.popup_alertas, null);
+
+        alerBuilder.setView(layout);
+
+        AutoImagen iconoAlerta = (AutoImagen) layout.findViewById(R.id.iconoAlerta);
+        AutoText tituloAlerta = (AutoText) layout.findViewById(R.id.tituloAlerta);
+        TextView contenidoAlerta = (TextView) layout.findViewById(R.id.contenidoAlerta);
+        TextView botonAceptar = (TextView) layout.findViewById(R.id.boton_aceptar);
+        layout.findViewById(R.id.btnSecundario).setVisibility(View.GONE);
+
+        tituloAlerta.setText(titulo);
+        if(titulo.equals("Advertencia")){
+            iconoAlerta.setBackground(ContextCompat.getDrawable(activity, R.drawable.ic_advertencia));
+        }else if(titulo.equals("Información")){
+            iconoAlerta.setBackground(ContextCompat.getDrawable(activity, R.drawable.ic_informacion));
+        }
+
+        if(contenido.contains("e0"))
+            contenido = Utilidades.convertirPrimeraMayuscula(ControladorEtiquetas.erroresMsg.getProperty("E0"));
+
+        contenidoAlerta.setText(Utilidades.unicodeString(contenido));
+        alerBuilder.create();
+        final AlertDialog ad = alerBuilder.show();
+
+        Utilidades.cambiarTamanoAlertDialog(ad);
+
+        botonAceptar.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ad.dismiss();
+                    }
+                }
+        );*/
+    }
+
+    @Override
+    public void deployDialogIsDriverDoco(Context context) {
+
     }
 }
