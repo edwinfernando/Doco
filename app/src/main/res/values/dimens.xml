@@ -16,4 +16,5 @@
     <dimen name="size_photo_profile_setting">0.34px</dimen>
 
     <dimen name="border_margin">5dp</dimen>
+    <dimen name="height_dialog">140dp</dimen>
 </resources>

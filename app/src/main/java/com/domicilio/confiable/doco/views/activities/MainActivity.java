@@ -23,6 +23,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -181,11 +183,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_free_docos) {
 
         } else if (id == R.id.nav_promotions) {
-
+            deployDialogPromotions(this);
         } else if (id == R.id.nav_help) {
 
         } else if (id == R.id.nav_driver_doco) {
-
+            deployDialogIsDriverDoco(this);
         } else if (id == R.id.nav_configuration) {
           //  Intent intent = new Intent(MainActivity.this,SettingUserProfileActivity.class);
             Intent intent = new Intent(this,SettingDriverProfileActivity.class);
@@ -286,47 +288,55 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void deployDialogPromotions(Context context) {
-       /* final AlertDialog.Builder alerBuilder = new AlertDialog.Builder(activity);
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
 
-        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(activity.LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.popup_alertas, null);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.dialog_promotions, null);
 
-        alerBuilder.setView(layout);
+        alertBuilder.setView(layout);
 
-        AutoImagen iconoAlerta = (AutoImagen) layout.findViewById(R.id.iconoAlerta);
-        AutoText tituloAlerta = (AutoText) layout.findViewById(R.id.tituloAlerta);
-        TextView contenidoAlerta = (TextView) layout.findViewById(R.id.contenidoAlerta);
-        TextView botonAceptar = (TextView) layout.findViewById(R.id.boton_aceptar);
-        layout.findViewById(R.id.btnSecundario).setVisibility(View.GONE);
+        EditText edt_code_doco_free = (EditText) layout.findViewById(R.id.edt_code_doco_free);
+        Button btn_register_code_doco_free = (Button) layout.findViewById(R.id.btn_register_code_doco_free);
 
-        tituloAlerta.setText(titulo);
-        if(titulo.equals("Advertencia")){
-            iconoAlerta.setBackground(ContextCompat.getDrawable(activity, R.drawable.ic_advertencia));
-        }else if(titulo.equals("Información")){
-            iconoAlerta.setBackground(ContextCompat.getDrawable(activity, R.drawable.ic_informacion));
-        }
+        alertBuilder.create();
+        final AlertDialog ad = alertBuilder.show();
 
-        if(contenido.contains("e0"))
-            contenido = Utilidades.convertirPrimeraMayuscula(ControladorEtiquetas.erroresMsg.getProperty("E0"));
+        //Utilidades.cambiarTamanoAlertDialog(ad);
 
-        contenidoAlerta.setText(Utilidades.unicodeString(contenido));
-        alerBuilder.create();
-        final AlertDialog ad = alerBuilder.show();
-
-        Utilidades.cambiarTamanoAlertDialog(ad);
-
-        botonAceptar.setOnClickListener(
+        btn_register_code_doco_free.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         ad.dismiss();
                     }
                 }
-        );*/
+        );
     }
 
     @Override
     public void deployDialogIsDriverDoco(Context context) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
 
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.dialog_is_driver_doco, null);
+
+        alertBuilder.setView(layout);
+
+        EditText edt_insert_driver_code = (EditText) layout.findViewById(R.id.edt_insert_driver_code);
+        Button btn_enter_driver_code = (Button) layout.findViewById(R.id.btn_enter_driver_code);
+
+        alertBuilder.create();
+        final AlertDialog ad = alertBuilder.show();
+
+        //Utilidades.cambiarTamanoAlertDialog(ad);
+
+        btn_enter_driver_code.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ad.dismiss();
+                    }
+                }
+        );
     }
 }
