@@ -87,8 +87,9 @@ public class MainActivity extends AppCompatActivity
                 (int) (DeviceDimensionsHelper.getDisplayWidth(this) * getResources().getDimension(R.dimen.size_photo_nav))));
 
         ImageView profile_image_marker = (ImageView) findViewById(R.id.profile_image_marker);
+        /**
         profile_image_marker.setImageDrawable(Utilities.roundedBitmapDrawable(this,R.drawable.profile,
-                (int) (DeviceDimensionsHelper.getDisplayWidth(this) * getResources().getDimension(R.dimen.size_photo_market_map))));
+                (int) (DeviceDimensionsHelper.getDisplayWidth(this) * getResources().getDimension(R.dimen.size_photo_market_map))));**/
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_fragment, new MapsFragment()).commit();
