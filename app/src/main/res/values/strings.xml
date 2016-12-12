@@ -61,5 +61,9 @@
     <string name="insert_code_doco_free">Ingresa código de invitación</string>
     <string name="insert_driver_code">Ingresa código</string>
     <string name="enter">Ingresar</string>
+    
+    <string name="msn_share_code">COMPARTE EL CÓDIGO DE INVITACIÓN</string>
+    <string name="msn_policy_share_code">Regala a tus amigos DOCOS gratis. Obtendrás 1.000 COP de cupo para tus siguientes DOCOS cuando ellos comiencen a DOQUEAR.</string>
+    <string name="share">Compartir</string>
 
 </resources>

@@ -17,4 +17,7 @@
 
     <dimen name="border_margin">5dp</dimen>
     <dimen name="height_dialog">140dp</dimen>
+
+    <dimen name="padding_left_rigth">40dp</dimen>
+    <dimen name="padding_top_bottom">5dp</dimen>
 </resources>

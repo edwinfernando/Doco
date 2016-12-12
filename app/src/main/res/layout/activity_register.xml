@@ -133,6 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/Button.Orange">
+
                     <Button
                         android:id="@+id/btn_register_me"
                         style="@style/SelectableItemBackgroundButton"

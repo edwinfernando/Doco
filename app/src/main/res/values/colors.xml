@@ -9,7 +9,9 @@
     <color name="colorGreen">#1aa10e</color>
     <color name="colorGreenDark">#33691e</color>
     <color name="colorOrange">#cb7610</color>
+    <color name="colorOrangeAlpha">#68cb7610</color>
     <color name="colorOrangeDark">#e0571d</color>
+    <color name="colorOrangeDarkAlpha">#68e0571d</color>
     <color name="colorYellow">#FFB805</color>
     <color name="colorYellowDark">#db9600</color>
     <color name="colorBlack">#000000</color>

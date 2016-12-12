@@ -182,7 +182,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_docos) {
 
         } else if (id == R.id.nav_free_docos) {
-
+            Intent intent = new Intent(this,FreeDocosActivity.class);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_promotions) {
             deployDialogPromotions(this);
         } else if (id == R.id.nav_help) {
