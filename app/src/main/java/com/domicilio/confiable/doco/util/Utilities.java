@@ -202,8 +202,9 @@ public class Utilities {
         return data;
     }
 
-    public static void obtenerDireccion(Activity activity, LatLng location, FloatingSearchView target)
+    public static String obtenerDireccion(Activity activity, LatLng location)
     {
+        String direccion="";
         if (location.latitude != 0.0 && location.longitude != 0.0) {
             try {
                 Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
@@ -211,12 +212,14 @@ public class Utilities {
                 if (!list.isEmpty()) {
                     Address address = list.get(0);
                     Log.i("Direccion",address.getAddressLine(0));
-                    target.setSearchHint(address.getAddressLine(0));
+                    direccion= address.getAddressLine(0);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                direccion= null;
             }
         }
+        return direccion;
     }
 
 }

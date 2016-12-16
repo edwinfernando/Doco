@@ -1,6 +1,7 @@
 package com.domicilio.confiable.doco.views.fragments;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
@@ -18,10 +19,12 @@ import android.widget.Toast;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.domicilio.confiable.doco.R;
 import com.domicilio.confiable.doco.domain.Marker;
+import com.domicilio.confiable.doco.model.DirectionFinder;
+import com.domicilio.confiable.doco.model.DirectionFinderListener;
+import com.domicilio.confiable.doco.model.Route;
 import com.domicilio.confiable.doco.presenters.fragments.IMapsPresenter;
 import com.domicilio.confiable.doco.presenters.fragments.MapsPresenter;
 import com.domicilio.confiable.doco.util.DataParser;
-import com.domicilio.confiable.doco.util.MyLocationListener;
 import com.domicilio.confiable.doco.util.Utilities;
 import com.domicilio.confiable.doco.views.activities.CheckPermissionActivityManager;
 import com.domicilio.confiable.doco.views.activities.MainActivity;
@@ -38,28 +41,33 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import static com.domicilio.confiable.doco.util.Utilities.getMarkerBitmapFromView;
 
-public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener,DirectionFinderListener {
 
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
+    private List<Polyline> polylinePaths = new ArrayList<>();
     MainActivity mainActivity;
     ArrayList<LatLng> MarkerPoints;
     private GoogleMap nMap;
-
-    private GoogleMap mGoogleMap;
     private IMapsPresenter presenter;
     private View mapView;
+    private String direccionOrigen;
+    private String direccionDestino;
+    FloatingSearchView objetivo;
+    private ProgressDialog progressDialog;
 
     LatLng latLng;
     com.google.android.gms.maps.model.Marker currLocationMarker;
@@ -68,6 +76,7 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mapView = inflater.inflate(R.layout.fragment_maps, container, false);
         MarkerPoints = new ArrayList<>();
+
         return mapView;
     }
 
@@ -128,7 +137,7 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
 
                     // Adding new item to the ArrayList
                     MarkerPoints.add(latLng);
-
+                    objetivo= (FloatingSearchView) mainActivity.findViewById(R.id.floating_search_view);
                     // Creating MarkerOptions
                     MarkerOptions options = new MarkerOptions();
 
@@ -136,6 +145,7 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
                     options.position(latLng);
                     Location miLocation = nMap.getMyLocation();
                     LatLng ubicacion = new LatLng(miLocation.getLatitude(),miLocation.getLongitude());
+                    direccionOrigen = Utilities.obtenerDireccion(getActivity(),ubicacion);
                     MarkerPoints.add(ubicacion);
                     /**
                      * For the start location, the color of marker is GREEN and
@@ -146,6 +156,7 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
                     }
                     if (MarkerPoints.size() == 2) {
                         options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+
                     }
 
 
@@ -157,22 +168,24 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
                         LatLng origin = MarkerPoints.get(1);
                         LatLng dest = MarkerPoints.get(0);
 
+                        direccionDestino = Utilities.obtenerDireccion(getActivity(),dest);
                         // Getting URL to the Google Directions API
                         String url = Utilities.getUrl(origin, dest);
                         Log.d("onMapClick", url.toString());
+                        /**
                         FetchUrl FetchUrl = new FetchUrl();
                         // Start downloading json data from Google Directions API
-                        FetchUrl.execute(url);
-
+                        FetchUrl.execute(url);*/
+                        sendRequest();
 
                         //move map camera
                        // nMap.moveCamera(CameraUpdateFactory.newLatLng(origin));
                         //nMap.animateCamera(CameraUpdateFactory.zoomTo(11));
                     }
-                    FloatingSearchView objetivo = (FloatingSearchView) mainActivity.findViewById(R.id.floating_search_view);
+
                     Log.i("Elementos Market",MarkerPoints.size()+"");
                     LatLng destino = new LatLng(MarkerPoints.get(0).latitude,MarkerPoints.get(0).longitude);
-                    Utilities.obtenerDireccion(getActivity(),destino,objetivo);
+                    //Utilities.obtenerDireccion(getActivity(),destino,objetivo);
                     if(mainActivity.FAB_Status){
                         mainActivity.hideFAB();
                         mainActivity.FAB_Status = false;
@@ -294,6 +307,45 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
+    @Override
+    public void onDirectionFinderStart() {
+        progressDialog = ProgressDialog.show(getActivity(), "Buscando",
+                "Calculando", true);
+
+        if(polylinePaths!=null)
+        {
+            for (Polyline polyline:polylinePaths ) {
+                polyline.remove();
+            }
+        }
+
+
+    }
+
+    @Override
+    public void onDirectionFinderSuccess(List<Route> routes) {
+        progressDialog.dismiss();
+        polylinePaths = new ArrayList<>();
+
+        for (Route route : routes) {
+            nMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.startLocation, 16));
+            /**
+            ((TextView) findViewById(R.id.tvDuration)).setText(route.duration.text);
+            ((TextView) findViewById(R.id.tvDistance)).setText(route.distance.text);**/
+             Log.i("Duracion","la duracion es de: "+route.duration.text);
+            Log.i("Distancia","La distancia es de: "+route.distance.text);
+            PolylineOptions polylineOptions = new PolylineOptions().
+                    geodesic(true).
+                    color(Color.BLUE).
+                    width(10);
+
+            for (int i = 0; i < route.points.size(); i++)
+                polylineOptions.add(route.points.get(i));
+
+            polylinePaths.add(nMap.addPolyline(polylineOptions));
+        }
+    }
+
 
     /**
      * Clases asincronas para pintar la ruta dentro del mapa
@@ -399,6 +451,22 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
         }
     }
 
+    private void sendRequest() {
 
+        if (direccionOrigen.isEmpty()) {
+            Toast.makeText(getActivity(), "Please enter origin address!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (direccionDestino.isEmpty()) {
+            Toast.makeText(getActivity(), "Please enter destination address!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            new DirectionFinder(this, direccionOrigen, direccionDestino).execute();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
