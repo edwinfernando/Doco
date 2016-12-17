@@ -214,6 +214,9 @@ public class Utilities {
                     Log.i("Direccion",address.getAddressLine(0));
                     direccion= address.getAddressLine(0);
                 }
+                String [] auxiliar = direccion.split(" ");
+                direccion =auxiliar[0]+" "+auxiliar[1]+" "+auxiliar[2]+", Cali, Colombia";
+                Log.i("Direccion Formato:",direccion);
             } catch (IOException e) {
                 e.printStackTrace();
                 direccion= null;

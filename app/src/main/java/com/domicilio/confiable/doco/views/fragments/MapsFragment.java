@@ -172,10 +172,10 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
                         // Getting URL to the Google Directions API
                         String url = Utilities.getUrl(origin, dest);
                         Log.d("onMapClick", url.toString());
-                        /**
-                        FetchUrl FetchUrl = new FetchUrl();
+
+                        //FetchUrl FetchUrl = new FetchUrl();
                         // Start downloading json data from Google Directions API
-                        FetchUrl.execute(url);*/
+                        //FetchUrl.execute(url);
                         sendRequest();
 
                         //move map camera
@@ -311,14 +311,14 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
     public void onDirectionFinderStart() {
         progressDialog = ProgressDialog.show(getActivity(), "Buscando",
                 "Calculando", true);
-
+/**
         if(polylinePaths!=null)
         {
             for (Polyline polyline:polylinePaths ) {
                 polyline.remove();
             }
         }
-
+*/
 
     }
 
@@ -453,14 +453,6 @@ public class MapsFragment extends Fragment implements IMapsView, OnMapReadyCallb
 
     private void sendRequest() {
 
-        if (direccionOrigen.isEmpty()) {
-            Toast.makeText(getActivity(), "Please enter origin address!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (direccionDestino.isEmpty()) {
-            Toast.makeText(getActivity(), "Please enter destination address!", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         try {
             new DirectionFinder(this, direccionOrigen, direccionDestino).execute();
