@@ -30,14 +30,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
 import com.domicilio.confiable.doco.R;
 import com.domicilio.confiable.doco.util.DeviceDimensionsHelper;
 import com.domicilio.confiable.doco.util.Utilities;
+import com.domicilio.confiable.doco.views.fragments.BaseExampleFragment;
 import com.domicilio.confiable.doco.views.fragments.MapsFragment;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, IMainActivityView {
+        implements BaseExampleFragment.BaseExampleFragmentCallbacks, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, IMainActivityView {
 
     FloatingActionButton fab;
     FloatingActionButton fab1;
@@ -63,6 +67,8 @@ public class MainActivity extends AppCompatActivity
     FrameLayout.LayoutParams layoutParams2;
     FrameLayout.LayoutParams layoutParams3;
 
+    private DrawerLayout mDrawerLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,10 +77,10 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+                this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -124,14 +130,22 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        List fragments = getSupportFragmentManager().getFragments();
+        BaseExampleFragment currentFragment = (BaseExampleFragment) fragments.get(fragments.size() - 1);
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else if (FAB_Status) {
             hideFAB();
             FAB_Status = false;
-        } else {
+        } else if (!currentFragment.onActivityBackPress()) {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onAttachSearchViewToDrawer(FloatingSearchView searchView) {
+        searchView.attachNavigationDrawerToMenuButton(mDrawerLayout);
     }
 
     @Override
