@@ -18,7 +18,7 @@ public class Driver {
     private String code;
     private String name;
     private String movil_number;
-    private int satisfation_score;
+    private int satisfation_score;;
 
     public String getCode() {
         return code;
@@ -48,7 +48,6 @@ public class Driver {
         return satisfation_score;
     }
 
-    public void setSatisfationScore(int satisfation_score) {
-        this.satisfation_score = satisfation_score;
-    }
+    public void setSatisfationScore(int satisfation_score) {this.satisfation_score = satisfation_score;}
+
 }
