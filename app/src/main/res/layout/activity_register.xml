@@ -88,6 +88,7 @@
                     android:src="@drawable/ic_logo_google" />
 
                 <ImageButton
+                    android:id="@+id/btn_google_sign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
