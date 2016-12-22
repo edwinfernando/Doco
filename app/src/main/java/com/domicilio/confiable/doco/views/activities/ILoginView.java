@@ -12,7 +12,7 @@ public interface ILoginView {
     void hideLoading();
     void toEnter();
     void createRegister();
-    void isChboxAccept(boolean chbox);
+    //void isChboxAccept(boolean chbox);
     void goToMainActivity();
     void goToRegisterActivity();
     void showErrorAutentication(Exception e);

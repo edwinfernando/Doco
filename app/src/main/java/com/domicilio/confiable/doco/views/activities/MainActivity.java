@@ -206,8 +206,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_driver_doco) {
             deployDialogIsDriverDoco(this);
         } else if (id == R.id.nav_configuration) {
-          //  Intent intent = new Intent(MainActivity.this,SettingUserProfileActivity.class);
-            Intent intent = new Intent(this,SettingDriverProfileActivity.class);
+            Intent intent = new Intent(MainActivity.this,SettingUserProfileActivity.class);
+            //Intent intent = new Intent(this,SettingDriverProfileActivity.class);
             startActivity(intent);
             finish();
         }

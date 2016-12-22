@@ -68,5 +68,7 @@
     <string name="err_msg_login">El campo email no es valido</string>
     <string name="err_msg_password">El campo contraseña no puede ser vacío</string>
     <string name="err_msg_login_no_empty">El campo email no puede ser vacío</string>
+    <string name="msg_sign_off">Desea cerrar sesión?</string>
+    <string name="msg_delete_account">Desea eliminar cuenta?</string>
 
 </resources>

@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
 
     @OnClick(R.id.btn_start_session)
+    @Override
     public void toEnter() {
         String email = edt_login.getText().toString();
         String password = edt_password.getText().toString();
@@ -71,14 +72,16 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     }
 
     @OnClick(R.id.btn_register)
+    @Override
     public void createRegister() {
         loginPresenter.createRegister();
     }
 
-    @OnCheckedChanged(R.id.chbox_remember_me)
+   /* @OnCheckedChanged(R.id.chbox_remember_me)
+    @Override
     public void isChboxAccept(boolean chbox) {
         loginPresenter.isChboxAccept(chbox);
-    }
+    }*/
 
     @Override
     public void goToMainActivity() {

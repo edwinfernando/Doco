@@ -15,6 +15,8 @@ import android.util.Log;
 import com.domicilio.confiable.doco.R;
 import com.domicilio.confiable.doco.model.UserDoco;
 import com.domicilio.confiable.doco.util.Cache;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends Activity{
 
@@ -35,24 +37,20 @@ public class SplashActivity extends Activity{
             getWindow().setEnterTransition(t3);
 
         }*/
-        Context context = this;
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
-        final boolean isActive = sharedPreferences.getBoolean("isActive",false);
-
-        /*UserDoco userDoco =  Cache.getInstance().get("user", UserDoco.class);
-        final boolean isActive = userDoco.is_active();*/
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                if(!isActive){
-                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-                }else{
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                } else {
+                    // No user is signed in
+                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                 }

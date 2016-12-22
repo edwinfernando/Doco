@@ -10,8 +10,11 @@ public interface IRegisterView {
     void isChboxAccept(boolean chbox);
     void goToMainActivity();
     void register();
+    void onClickButtonGoogle();
+    void signInGoogle();
     void showErrorRegister(Exception e);
     void showNotification(String msg);
     void showErrorLoginText(boolean error, int type);
     void showErrorPasswordText(boolean error);
+
 }
