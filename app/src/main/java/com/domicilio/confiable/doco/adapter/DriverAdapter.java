@@ -49,8 +49,11 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverHold
         holder.fab_driver_profile.setOnClickListener(this);
 
         holder.view.setOnClickListener(this);
-        holder. driver_available_image.setImageDrawable(Utilities.roundedBitmapDrawable(context,R.drawable.profile,
+
+        holder.driver_available_image.setImageDrawable(Utilities.roundedBitmapDrawable(context,R.drawable.profile,
                 (int) (DeviceDimensionsHelper.getDisplayWidth(context) * context.getResources().getDimension(R.dimen.size_photo_item_driver_available))));
+        holder.driver_distance.setText("");
+        holder.driver_time.setText("");
     }
 
     @Override
@@ -72,7 +75,7 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverHold
 
     public static class DriverHolder extends RecyclerView.ViewHolder {
      //   CircleImageView conductor_profile_image;
-        TextView name_driver;
+        TextView name_driver,driver_time,driver_distance;
         View view;
 
         ImageView driver_available_image;
@@ -85,6 +88,8 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverHold
          //   conductor_profile_image = (CircleImageView) itemView.findViewById(R.id.conductor_profile_image);
             driver_available_image = (ImageView) itemView.findViewById(R.id.driver_available_image);
             name_driver = (TextView) itemView.findViewById(R.id.name_driver);
+            driver_distance = (TextView) itemView.findViewById(R.id.driver_distance);
+            driver_time = (TextView) itemView.findViewById(R.id.driver_time);
 
             fab_driver_profile = (ImageButton) itemView.findViewById(R.id.fab_driver_profile);
         }

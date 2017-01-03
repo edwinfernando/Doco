@@ -59,6 +59,11 @@ public class MapsPresenter implements IMapsPresenter, LocationChangeListener {
     }
 
     @Override
+    public void onClickTarget() {
+        view.goToDriverComeFragment();
+    }
+
+    @Override
     public void onLocationChange(Location location) {
         Marker marker = new Marker("Estoy aqui", location.getLatitude(), location.getLongitude());
         view.refreshMap(marker);

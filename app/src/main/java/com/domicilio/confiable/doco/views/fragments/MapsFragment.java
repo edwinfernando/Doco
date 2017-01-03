@@ -5,14 +5,14 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.text.Html;
 import android.util.Log;
@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,14 +35,12 @@ import com.domicilio.confiable.doco.data.ColorSuggestion;
 
 import com.domicilio.confiable.doco.data.DataHelper;
 import com.domicilio.confiable.doco.domain.Marker;
-import com.domicilio.confiable.doco.model.DirectionFinder;
-import com.domicilio.confiable.doco.model.DirectionFinderListener;
-import com.domicilio.confiable.doco.model.Route;
 import com.domicilio.confiable.doco.presenters.fragments.IMapsPresenter;
 import com.domicilio.confiable.doco.presenters.fragments.MapsPresenter;
 import com.domicilio.confiable.doco.util.DataParser;
 import com.domicilio.confiable.doco.util.Utilities;
 import com.domicilio.confiable.doco.views.activities.CheckPermissionActivityManager;
+import com.domicilio.confiable.doco.views.activities.ListDriverActivity;
 import com.domicilio.confiable.doco.views.activities.MainActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -56,21 +55,20 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import static com.domicilio.confiable.doco.util.Utilities.getMarkerBitmapFromView;
-import static com.google.android.gms.wearable.DataMap.TAG;
 
-public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, DirectionFinderListener {
+public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, GoogleMap.OnMarkerClickListener {
 
     private final String TAG = "BlankFragment";
 
@@ -80,23 +78,20 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
 
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
-    private List<Polyline> polylinePaths = new ArrayList<>();
     MainActivity mainActivity;
     ArrayList<LatLng> MarkerPoints;
     private GoogleMap nMap;
     private IMapsPresenter presenter;
     private View mapView;
-    private String direccionOrigen;
-    private String direccionDestino;
-
+    LatLng origin;
+    LatLng target;
     FloatingSearchView mSearchView;
-    private ProgressDialog progressDialog;
 
     private String mLastQuery = "";
     private boolean mIsDarkSearchTheme = false;
     private ColorDrawable mDimDrawable;
     private View mDimSearchViewBackground;
-
+    private String date_route;
 
     LatLng latLng;
     com.google.android.gms.maps.model.Marker currLocationMarker;
@@ -151,6 +146,7 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         nMap = googleMap;
+        nMap.setOnMarkerClickListener(this);
 
         if (CheckPermissionActivityManager.checkPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION, null)) {
             nMap.setMyLocationEnabled(true);
@@ -174,6 +170,7 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
                 @Override
                 public void onMapClick(LatLng latLng) {
 
+
                     if (MarkerPoints.size() > 1) {
                         MarkerPoints.clear();
                         nMap.clear();
@@ -186,10 +183,9 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
 
                     // Setting the position of the marker
                     options.position(latLng);
-                    Location miLocation = nMap.getMyLocation();
-                    LatLng ubicacion = new LatLng(miLocation.getLatitude(), miLocation.getLongitude());
-                    direccionOrigen = Utilities.obtenerDireccion(getActivity(), ubicacion);
-                    MarkerPoints.add(ubicacion);
+
+
+                    MarkerPoints.add(origin);
                     /**
                      * For the start location, the color of marker is GREEN and
                      * for the end location, the color of marker is RED.
@@ -199,6 +195,7 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
                     }
                     if (MarkerPoints.size() == 2) {
                         options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                        options.title("target");
 
                     }
 
@@ -211,15 +208,14 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
                         LatLng origin = MarkerPoints.get(1);
                         LatLng dest = MarkerPoints.get(0);
 
-                        direccionDestino = Utilities.obtenerDireccion(getActivity(), dest);
+
                         // Getting URL to the Google Directions API
                         String url = Utilities.getUrl(origin, dest);
                         Log.d("onMapClick", url.toString());
 
-                        //FetchUrl FetchUrl = new FetchUrl();
+                        FetchUrl FetchUrl = new FetchUrl();
                         // Start downloading json data from Google Directions API
-                        //FetchUrl.execute(url);
-                        sendRequest();
+                        FetchUrl.execute(url);
 
                         //move map camera
                         // nMap.moveCamera(CameraUpdateFactory.newLatLng(origin));
@@ -227,8 +223,6 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
                     }
 
                     Log.i("Elementos Market", MarkerPoints.size() + "");
-                    LatLng destino = new LatLng(MarkerPoints.get(0).latitude, MarkerPoints.get(0).longitude);
-                    //Utilities.obtenerDireccion(getActivity(),destino,objetivo);
                     if (mainActivity.FAB_Status) {
                         mainActivity.hideFAB();
                         mainActivity.FAB_Status = false;
@@ -268,6 +262,31 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
         markerOptions.position(location);
         nMap.addMarker(markerOptions);
         //nMap.clear();*/
+    }
+
+    @Override
+    public void onClickTarget() {
+
+
+        /**
+         if (MarkerPoints.size() >= 2) {
+         LatLng origin = MarkerPoints.get(1);
+         LatLng dest = MarkerPoints.get(0);
+
+         addressTarget = Utilities.obtenerDireccion(getActivity(), dest);
+
+         String url = Utilities.getUrl(origin, dest);
+         Log.d("onMapClick", url.toString());
+         FetchUrl FetchUrl = new FetchUrl();
+         FetchUrl.execute(url);
+         presenter.onClickTarget();
+         }*/
+    }
+
+    @Override
+    public void goToDriverComeFragment() {
+        Intent intent = new Intent(getActivity(), ListDriverActivity.class);
+        startActivity(intent);
     }
 
 
@@ -328,66 +347,26 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
         if (currLocationMarker != null) {
             currLocationMarker.remove();
         }
-        latLng = new LatLng(location.getLatitude(), location.getLongitude());
-       /* MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("Current Position");
-       // markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_location));
-        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(R.drawable.profile)));
-        markerOptions.flat(true);
-        currLocationMarker = mGoogleMap.addMarker(markerOptions);*/
-
+        origin = new LatLng(location.getLatitude(), location.getLongitude());
         Toast.makeText(getActivity(), "Location Changed", Toast.LENGTH_SHORT).show();
-
         //zoom to current position:
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(latLng).zoom(16).build();
-
+                .target(origin).zoom(16).build();
         nMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(cameraPosition));
-
         //If you only need one location, unregister the listener
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
     @Override
-    public void onDirectionFinderStart() {
-        progressDialog = ProgressDialog.show(getActivity(), "Buscando",
-                "Calculando", true);
-/**
- if(polylinePaths!=null)
- {
- for (Polyline polyline:polylinePaths ) {
- polyline.remove();
- }
- }
- */
+    public boolean onMarkerClick(com.google.android.gms.maps.model.Marker marker) {
 
-    }
-
-    @Override
-    public void onDirectionFinderSuccess(List<Route> routes) {
-        progressDialog.dismiss();
-        polylinePaths = new ArrayList<>();
-
-        for (Route route : routes) {
-            nMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.startLocation, 16));
-            /**
-             ((TextView) findViewById(R.id.tvDuration)).setText(route.duration.text);
-             ((TextView) findViewById(R.id.tvDistance)).setText(route.distance.text);**/
-            Log.i("Duracion", "la duracion es de: " + route.duration.text);
-            Log.i("Distancia", "La distancia es de: " + route.distance.text);
-            PolylineOptions polylineOptions = new PolylineOptions().
-                    geodesic(true).
-                    color(Color.BLUE).
-                    width(10);
-
-            for (int i = 0; i < route.points.size(); i++)
-                polylineOptions.add(route.points.get(i));
-
-            polylinePaths.add(nMap.addPolyline(polylineOptions));
+        if (marker.getTitle().equalsIgnoreCase("target")) {
+            Toast.makeText(getActivity(), date_route, Toast.LENGTH_LONG).show();
         }
+        return true;
     }
+
 
     /**
      * Clases asincronas para pintar la ruta dentro del mapa
@@ -443,7 +422,7 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
                 routes = parser.parse(jObject);
                 Log.d("ParserTask", "Executing routes");
                 Log.d("ParserTask", routes.toString());
-
+                fragmentJson(jsonData[0]);
             } catch (Exception e) {
                 Log.d("ParserTask", e.toString());
                 e.printStackTrace();
@@ -456,8 +435,10 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
         protected void onPostExecute(List<List<HashMap<String, String>>> result) {
             ArrayList<LatLng> points;
             PolylineOptions lineOptions = null;
+            LatLng position = null;
 
             // Traversing through all the routes
+
             for (int i = 0; i < result.size(); i++) {
                 points = new ArrayList<>();
                 lineOptions = new PolylineOptions();
@@ -471,7 +452,7 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
 
                     double lat = Double.parseDouble(point.get("lat"));
                     double lng = Double.parseDouble(point.get("lng"));
-                    LatLng position = new LatLng(lat, lng);
+                    position = new LatLng(lat, lng);
 
                     points.add(position);
                 }
@@ -480,6 +461,17 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
                 lineOptions.addAll(points);
                 lineOptions.width(5);
                 lineOptions.color(getResources().getColor(R.color.colorOrange));
+
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(position);
+                markerOptions.title("target");
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                if (MarkerPoints.size() > 1) {
+                    MarkerPoints.clear();
+                    nMap.clear();
+                }
+                nMap.addMarker(markerOptions);
+
                 Log.d("onPostExecute", "onPostExecute lineoptions decoded");
             }
 
@@ -489,21 +481,16 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
             } else {
                 Log.d("onPostExecute", "without Polylines drawn");
             }
+            InputMethodManager imm = (InputMethodManager) mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mSearchView.getWindowToken(), 0);
         }
+
     }
 
-    private void sendRequest() {
-        try {
-            new DirectionFinder(this, direccionOrigen, direccionDestino).execute();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-    }
 
-    /**
+    /**************************************************************************************
      *
-     *
-     * */
+     **************************************************************************************/
 
     private void setupFloatingSearch() {
         mSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
@@ -547,14 +534,12 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
         mSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
             public void onSuggestionClicked(final SearchSuggestion searchSuggestion) {
-
                 mLastQuery = searchSuggestion.getBody();
             }
 
             @Override
             public void onSearchAction(String query) {
                 mLastQuery = query;
-
                 Log.d(TAG, "onSearchAction()");
             }
         });
@@ -577,7 +562,6 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
                     }
                 });
                 anim.start();
-
                 Log.d(TAG, "onFocus()");
             }
 
@@ -607,10 +591,18 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
             @Override
             public void onActionMenuItemSelected(MenuItem item) {
                 //just print action
-                Toast.makeText(getActivity().getApplicationContext(), item.getTitle(),
-                        Toast.LENGTH_SHORT).show();
-
-
+                if (item.getItemId() == R.id.action_location) {
+                    if (mSearchView.getQuery().equalsIgnoreCase("")) {
+                        Toast.makeText(getActivity(), "Favor Ingrese una dirección", Toast.LENGTH_SHORT).show();
+                    }else {
+                        target = Utilities.getLocationFromAddress(getActivity().getApplicationContext(), mSearchView.getQuery());
+                        nMap.clear();
+                        String url = Utilities.getUrl(origin, target);
+                        FetchUrl FetchUrl = new FetchUrl();
+                        FetchUrl.execute(url);
+                        fadeDimBackground(150, 0, null);
+                    }
+                }
             }
         });
 
@@ -646,40 +638,37 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
                 if (colorSuggestion.getIsHistory()) {
                     leftIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(),
                             R.drawable.ic_history_black_24dp, null));
-
                     Util.setIconColor(leftIcon, Color.parseColor(textColor));
                     leftIcon.setAlpha(.36f);
                 } else {
                     leftIcon.setAlpha(0.0f);
                     leftIcon.setImageDrawable(null);
                 }
-
                 textView.setTextColor(Color.parseColor(textColor));
                 String text = colorSuggestion.getBody()
                         .replaceFirst(mSearchView.getQuery(),
                                 "<font color=\"" + textLight + "\">" + mSearchView.getQuery() + "</font>");
                 textView.setText(Html.fromHtml(text));
             }
-
         });
     }
 
 
-     @Override
-     public boolean onActivityBackPress() {
-         //if mSearchView.setSearchFocused(false) causes the focused search
-         //to close, then we don't want to close the activity. if mSearchView.setSearchFocused(false)
-         //returns false, we know that the search was already closed so the call didn't change the focus
-         //state and it makes sense to call supper onBackPressed() and close the activity
-         if (!mSearchView.setSearchFocused(false)) {
-             return false;
-         }
-         return true;
-     }
+    @Override
+    public boolean onActivityBackPress() {
+        //if mSearchView.setSearchFocused(false) causes the focused search
+        //to close, then we don't want to close the activity. if mSearchView.setSearchFocused(false)
+        //returns false, we know that the search was already closed so the call didn't change the focus
+        //state and it makes sense to call supper onBackPressed() and close the activity
+        if (!mSearchView.setSearchFocused(false)) {
+            return false;
+        }
+        return true;
+    }
 
-     private void setupDrawer() {
-         attachSearchViewActivityDrawer(mSearchView);
-     }
+    private void setupDrawer() {
+        attachSearchViewActivityDrawer(mSearchView);
+    }
 
     private void fadeDimBackground(int from, int to, Animator.AnimatorListener listener) {
         ValueAnimator anim = ValueAnimator.ofInt(from, to);
@@ -697,5 +686,26 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
         anim.setDuration(ANIM_DURATION);
         anim.start();
     }
+
+
+    public String fragmentJson(String data) throws JSONException {
+        if (data == null) {
+            return null;
+        }
+
+        JSONObject jsonData = new JSONObject(data);
+        JSONArray jsonRoutes = jsonData.getJSONArray("routes");
+        JSONObject jsonRoute = jsonRoutes.getJSONObject(0);
+        JSONArray jsonLegs = jsonRoute.getJSONArray("legs");
+        JSONObject jsonLeg = jsonLegs.getJSONObject(0);
+        JSONObject jsonDistance = jsonLeg.getJSONObject("distance");
+        JSONObject jsonTime = jsonLeg.getJSONObject("duration");
+        date_route = jsonDistance.getString("text") + "," + jsonTime.getString("text");
+        Log.d("New Fragment", "Distance: " + jsonDistance.getString("text") + " Time: " + jsonTime.getString("text"));
+        //IDriverComeView driverComeView = new DriverComeFragment();
+        //driverComeView.setDateRoute(jsonDistance.getString("text"),jsonTime.getString("text"));
+        return date_route;
+    }
+
 
 }

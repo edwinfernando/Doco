@@ -14,7 +14,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
@@ -25,9 +24,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.arlib.floatingsearchview.FloatingSearchView;
 import com.domicilio.confiable.doco.R;
+import com.domicilio.confiable.doco.views.fragments.DriverComeFragment;
+import com.domicilio.confiable.doco.views.fragments.IDriverComeView;
 import com.google.android.gms.maps.model.LatLng;
+
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,6 +40,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,13 +52,14 @@ import java.util.Locale;
 public class Utilities {
     /**
      * Metodo encargado mostrar notificaciones en la barra segun la configuracion del usuario
-     * @param context un contexto
+     *
+     * @param context      un contexto
      * @param noticationId id de la notificacion, es util para cuando se desee reemplazar la notificacion existente en la barra
-     * @param title titulo de la notificacion
-     * @param msg mensaje de la notificacion
-     * */
+     * @param title        titulo de la notificacion
+     * @param msg          mensaje de la notificacion
+     */
     public static void showNotification(Context context, int noticationId, int iconDrawelId,
-                                        String title, String msg, Intent intent){
+                                        String title, String msg, Intent intent) {
         try {
             // this is it, we'll build the notification!
             // in the addAction method, if you don't want any icon, just set the first param to 0
@@ -64,7 +71,7 @@ public class Utilities {
 
             // intent triggered, you can add other intent for other actions
             //Intent intent = new Intent(context, SplashActivityController.class);
-            if(intent != null) {
+            if (intent != null) {
                 PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent, 0);
                 builder.setContentIntent(pIntent);
             }
@@ -94,7 +101,7 @@ public class Utilities {
         View customMarkerView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.view_photo_marker, null);
         ImageView markerImageView = (ImageView) customMarkerView.findViewById(R.id.profile_image_marker);
 
-        markerImageView.setImageDrawable(roundedBitmapDrawable(context,resId,55));
+        markerImageView.setImageDrawable(roundedBitmapDrawable(context, resId, 55));
 
         customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         customMarkerView.layout(0, 0, customMarkerView.getMeasuredWidth(), customMarkerView.getMeasuredHeight());
@@ -115,24 +122,24 @@ public class Utilities {
         return returnedBitmap;
     }
 
-    public static RoundedBitmapDrawable roundedBitmapDrawable(Context context, int resId, int size){
+    public static RoundedBitmapDrawable roundedBitmapDrawable(Context context, int resId, int size) {
         //extraemos el drawable en un bitmap
         Drawable originalDrawable = context.getResources().getDrawable(resId);
         Bitmap originalBitmap = ((BitmapDrawable) originalDrawable).getBitmap();
-        originalBitmap = BitmapScaler.strechToFill(originalBitmap,size,size);
+        originalBitmap = BitmapScaler.strechToFill(originalBitmap, size, size);
         //creamos el drawable redondeado
         RoundedBitmapDrawable roundedDrawable = RoundedBitmapDrawableFactory.create(context.getResources(), originalBitmap);
         //asignamos el CornerRadius
         roundedDrawable.setCornerRadius(originalBitmap.getHeight());
 
-        return  roundedDrawable;
+        return roundedDrawable;
     }
 
     public static double fijarNumero(double numero, int digitos) {
         double resultado;
         resultado = numero * Math.pow(10, digitos);
         resultado = Math.round(resultado);
-        resultado = resultado/Math.pow(10, digitos);
+        resultado = resultado / Math.pow(10, digitos);
         return resultado;
     }
 
@@ -143,26 +150,30 @@ public class Utilities {
      */
     public static String getUrl(LatLng origin, LatLng dest) {
 
-        // Origin of route
-        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
-        // Destination of route
-        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
-        // Sensor enabled
-        String sensor = "sensor=false";
-        // Building the parameters to the web service
-        String parameters = str_origin + "&" + str_dest + "&" + sensor;
-        // Output format
-        String output = "json";
-        // Building the url to the web service
-        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
-        return url;
+        if (origin == null || dest == null) {
+            return "";
+        } else {
+            // Origin of route
+            String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
+            // Destination of route
+            String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
+            // Sensor enabled
+            String sensor = "sensor=false";
+            // Building the parameters to the web service
+            String parameters = str_origin + "&" + str_dest + "&" + sensor;
+            // Output format
+            String output = "json";
+            // Building the url to the web service
+            String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
+            return url;
+        }
     }
 
     /**
-     * @descripcion: Metodo encargado de descargado el json de la url
      * @param strUrl
      * @return
      * @throws IOException
+     * @descripcion: Metodo encargado de descargado el json de la url
      */
     public static String downloadUrl(String strUrl) throws IOException {
         String data = "";
@@ -202,27 +213,25 @@ public class Utilities {
         return data;
     }
 
-    public static String obtenerDireccion(Activity activity, LatLng location)
-    {
-        String direccion="";
-        if (location.latitude != 0.0 && location.longitude != 0.0) {
-            try {
-                Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
-                List<Address> list = geocoder.getFromLocation(location.latitude, location.longitude, 1);
-                if (!list.isEmpty()) {
-                    Address address = list.get(0);
-                    Log.i("Direccion",address.getAddressLine(0));
-                    direccion= address.getAddressLine(0);
-                }
-                String [] auxiliar = direccion.split(" ");
-                direccion =auxiliar[0]+" "+auxiliar[1]+" "+auxiliar[2]+", Cali, Colombia";
-                Log.i("Direccion Formato:",direccion);
-            } catch (IOException e) {
-                e.printStackTrace();
-                direccion= null;
+
+    public static LatLng getLocationFromAddress(Context context, String strAddress) {
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+        try {
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
             }
+            Address location = address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        return direccion;
+        return p1;
     }
+
 
 }
