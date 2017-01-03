@@ -7,7 +7,7 @@
     https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=A7:04:4E:97:50:2A:C1:8F:3C:8B:5C:A6:24:73:15:D1:75:A7:D2:ED%3Bcom.domicilio.confiable.doco.views.activities
 
     You can also add your credentials to an existing key, using this line:
-    A7:04:4E:97:50:2A:C1:8F:3C:8B:5C:A6:24:73:15:D1:75:A7:D2:ED;com.domicilio.confiable.doco.views.activities
+    D6:24:A1:30:DA:6A:F1:FE:DC:E1:A0:7D:57:52:ED:7F:47:3B:CA:98;com.domicilio.confiable.doco.views.activities
 
     Alternatively, follow the directions here:
     https://developers.google.com/maps/documentation/android/start#get-key

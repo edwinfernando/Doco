@@ -32,6 +32,7 @@ public class Cache {
     public void init(Context context) {
         this.context = context;
         sharedPreferences = context.getSharedPreferences("cache", Context.MODE_PRIVATE);
+       // add("isActive",false);
         gson = new Gson();
     }
 

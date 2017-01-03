@@ -32,6 +32,7 @@
                 android:orientation="vertical">
 
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edt_login_register_layout"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -39,7 +40,7 @@
                     app:hintTextAppearance="@style/FloatingLabelBlack">
 
                     <EditText
-                        android:id="@+id/edt_login"
+                        android:id="@+id/edt_login_register"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/email"
@@ -49,6 +50,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/edt_password_register_layout"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -57,7 +59,7 @@
                     app:passwordToggleTint="@color/colorBlackAlpha">
 
                     <EditText
-                        android:id="@+id/edt_password"
+                        android:id="@+id/edt_password_register"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/contrasena"
@@ -79,18 +81,21 @@
                 android:orientation="horizontal">
 
                 <ImageButton
+                    android:id="@+id/btn_google_sign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:background="@null"
-                    android:src="@drawable/ic_logo_google" />
+                    android:src="@drawable/ic_logo_google"
+                    style="@style/SelectableItemBackground"/>
 
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:background="@null"
-                    android:src="@drawable/ic_logo_facebook" />
+                    android:src="@drawable/ic_logo_facebook"
+                    style="@style/SelectableItemBackground"/>
             </LinearLayout>
 
             <View
@@ -114,10 +119,11 @@
                     android:layout_height="10dp" />
 
                 <CheckBox
+                    android:id="@+id/chbox_accept_terms"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/colorBlackAlpha"
-                    android:text="@string/acepto_terminos"
+                    android:text="@string/accept_terms"
                     android:textColor="@color/colorBlack"
                     android:textColorHint="@color/colorBlack" />
             </LinearLayout>

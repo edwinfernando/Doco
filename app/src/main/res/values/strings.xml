@@ -8,7 +8,7 @@
     <string name="recordar">Recordar</string>
     <string name="iniciar_sesion">Iniciar sesión</string>
     <string name="politicas">Las políticas públicas son las respuestas que el Estado  puede dar a las demandas de la sociedad, en forma de normas, instituciones, prestaciones,  bienes públicos o servicios.</string>
-    <string name="acepto_terminos">Acepto los terminos y condiciones.</string>
+    <string name="accept_terms">Acepto los terminos y condiciones.</string>
     <string name="registrar">Registrar</string>
     <string name="title_activity_main">MainActivity</string>
 
@@ -65,5 +65,10 @@
     <string name="msn_share_code">COMPARTE EL CÓDIGO DE INVITACIÓN</string>
     <string name="msn_policy_share_code">Regala a tus amigos DOCOS gratis. Obtendrás 1.000 COP de cupo para tus siguientes DOCOS cuando ellos comiencen a DOQUEAR.</string>
     <string name="share">Compartir</string>
+    <string name="err_msg_login">El campo email no es valido</string>
+    <string name="err_msg_password">El campo contraseña no puede ser vacío</string>
+    <string name="err_msg_login_no_empty">El campo email no puede ser vacío</string>
+    <string name="msg_sign_off">Desea cerrar sesión?</string>
+    <string name="msg_delete_account">Desea eliminar cuenta?</string>
 
 </resources>
