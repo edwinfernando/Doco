@@ -31,9 +31,9 @@ import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.arlib.floatingsearchview.util.Util;
 import com.domicilio.confiable.doco.R;
-import com.domicilio.confiable.doco.data.ColorSuggestion;
 
-import com.domicilio.confiable.doco.data.DataHelper;
+import com.domicilio.confiable.doco.data.PlacesAutoComplete;
+import com.domicilio.confiable.doco.data.PlacesDataHelper;
 import com.domicilio.confiable.doco.domain.Marker;
 import com.domicilio.confiable.doco.presenters.fragments.IMapsPresenter;
 import com.domicilio.confiable.doco.presenters.fragments.MapsPresenter;
@@ -72,7 +72,7 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
 
     private final String TAG = "BlankFragment";
 
-    public static final long FIND_SUGGESTION_SIMULATED_DELAY = 250;
+    public static final long FIND_SUGGESTION_SIMULATED_DELAY = 2500;
 
     private static final long ANIM_DURATION = 350;
 
@@ -510,21 +510,19 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
 
                     //simulates a query call to a data source
                     //with a new query.
-                    DataHelper.findSuggestions(getActivity(), newQuery, 5,
-                            FIND_SUGGESTION_SIMULATED_DELAY, new DataHelper.OnFindSuggestionsListener() {
-
-                                @Override
-                                public void onResults(List<ColorSuggestion> results) {
-
-                                    //this will swap the data and
-                                    //render the collapse/expand animations as necessary
-                                    mSearchView.swapSuggestions(results);
-
-                                    //let the users know that the background
-                                    //process has completed
-                                    mSearchView.hideProgress();
-                                }
-                            });
+                    PlacesDataHelper.findSuggestions(getActivity(), newQuery, 5, FIND_SUGGESTION_SIMULATED_DELAY, new PlacesDataHelper.OnFindSuggestionsListener() {
+                        @Override
+                        public void onResults(List<PlacesAutoComplete> results) {
+                            if(results!=null)
+                            {
+                                Log.d("List results---->", results.size() + "");
+                                mSearchView.swapSuggestions(results);
+                                mSearchView.hideProgress();
+                            }else {
+                                Log.d("results-->","Null");
+                            }
+                        }
+                    },latLng);
                 }
 
                 Log.d(TAG, "onSearchTextChanged()");
@@ -557,7 +555,7 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         //show suggestions when search bar gains focus (typically history suggestions)
-                        mSearchView.swapSuggestions(DataHelper.getHistory(getActivity(), 3));
+                        mSearchView.swapSuggestions(PlacesDataHelper.getHistory(getActivity(), 3));
 
                     }
                 });
@@ -594,7 +592,7 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
                 if (item.getItemId() == R.id.action_location) {
                     if (mSearchView.getQuery().equalsIgnoreCase("")) {
                         Toast.makeText(getActivity(), "Favor Ingrese una dirección", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
                         target = Utilities.getLocationFromAddress(getActivity().getApplicationContext(), mSearchView.getQuery());
                         nMap.clear();
                         String url = Utilities.getUrl(origin, target);
@@ -626,16 +624,18 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
          * Keep in mind that the suggestion list is a RecyclerView, so views are reused for different
          * items in the list.
          */
+
+
         mSearchView.setOnBindSuggestionCallback(new SearchSuggestionsAdapter.OnBindSuggestionCallback() {
             @Override
             public void onBindSuggestion(View suggestionView, ImageView leftIcon,
                                          TextView textView, SearchSuggestion item, int itemPosition) {
-                ColorSuggestion colorSuggestion = (ColorSuggestion) item;
+                PlacesAutoComplete placesAutoComplete = (PlacesAutoComplete) item;
 
                 String textColor = mIsDarkSearchTheme ? "#ffffff" : "#000000";
                 String textLight = mIsDarkSearchTheme ? "#bfbfbf" : "#787878";
 
-                if (colorSuggestion.getIsHistory()) {
+                if (placesAutoComplete.getIsHistory()) {
                     leftIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(),
                             R.drawable.ic_history_black_24dp, null));
                     Util.setIconColor(leftIcon, Color.parseColor(textColor));
@@ -645,7 +645,7 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
                     leftIcon.setImageDrawable(null);
                 }
                 textView.setTextColor(Color.parseColor(textColor));
-                String text = colorSuggestion.getBody()
+                String text = placesAutoComplete.getBody()
                         .replaceFirst(mSearchView.getQuery(),
                                 "<font color=\"" + textLight + "\">" + mSearchView.getQuery() + "</font>");
                 textView.setText(Html.fromHtml(text));
