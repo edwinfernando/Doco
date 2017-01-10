@@ -9,7 +9,6 @@ import android.text.Editable;
 public interface ILoginPresenter {
     boolean edtLoginTextChanged(String email);
     boolean edtPasswordTextChanged(String paswword);
-    void isChboxAccept(boolean chbox);
     void toEnter(String email, String password) ;
     void createRegister();
 }

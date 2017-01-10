@@ -1,14 +1,13 @@
 package com.domicilio.confiable.doco.data;
 
-import android.app.Activity;
+
 import android.content.Context;
-import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
+
 import android.util.Log;
 import android.widget.Filter;
 
 
-import com.domicilio.confiable.doco.util.Utilities;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -104,7 +103,7 @@ public class PlacesDataHelper {
                 } while (i < resultados.size());
 
                 Log.d("sPlacesSuggestions-->",""+sPlacesSuggestions.size());
-                //DataHelper.resetSuggestionsHistory();
+
                 FilterResults results = new FilterResults();
                 Collections.sort(sPlacesSuggestions, new Comparator<PlacesAutoComplete>() {
                     @Override
