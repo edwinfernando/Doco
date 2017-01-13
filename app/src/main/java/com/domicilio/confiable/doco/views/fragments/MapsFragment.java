@@ -54,6 +54,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -63,6 +64,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -147,6 +149,13 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
     public void onMapReady(GoogleMap googleMap) {
         nMap = googleMap;
         nMap.setOnMarkerClickListener(this);
+
+        String date = Utilities.getDate();
+        boolean nigth = Utilities.isNigth(date);
+        Log.d("isNigth--->",nigth+"");
+        if(nigth){
+            nMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(mapView.getContext(),R.raw.style_json));
+        }
 
         if (CheckPermissionActivityManager.checkPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION, null)) {
             nMap.setMyLocationEnabled(true);

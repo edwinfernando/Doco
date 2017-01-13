@@ -40,7 +40,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -233,5 +237,35 @@ public class Utilities {
         return p1;
     }
 
+    public static String getDate() {
+        Date date = new Date();
+        String aux[] = date.toString().split(" ");
+        Log.d("getDate()--->", aux[3]);
+        return aux[3];
+    }
 
+    public static boolean isNigth(String myHour) {
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("hh:mm:ss");
+
+            String hora1 = "18:00:00";
+            String hora2 = "06:00:00";
+            String horaNueva = myHour;
+
+            Date date1, date2, dateNueva;
+            date1 = dateFormat.parse(hora1);
+            date2 = dateFormat.parse(hora2);
+            dateNueva = dateFormat.parse(horaNueva);
+            if ((dateNueva.compareTo(date1) >= 0) && (date2.compareTo(dateNueva) <= 0)) {
+                System.out.println("La hora " + horaNueva + " está entre " + hora1 + " y " + hora2);
+                return true;
+            } else {
+                System.out.println("La hora " + horaNueva + " no está entre " + hora1 + " y " + hora2);
+                return false;
+            }
+        } catch (ParseException parseException) {
+            parseException.printStackTrace();
+        }
+        return false;
+    }
 }
