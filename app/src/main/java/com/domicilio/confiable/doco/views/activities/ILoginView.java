@@ -18,4 +18,5 @@ public interface ILoginView {
     void showErrorAutentication(Exception e);
     void showErrorLoginText(boolean error, int type);
     void showErrorPasswordText(boolean error);
+
 }

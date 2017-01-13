@@ -24,7 +24,6 @@ public class LoginPresenter implements ILoginPresenter {
     private ILoginView view;
     private FirebaseAuth mAuth;
     private Context context;
-    private boolean chbox;
 
     public LoginPresenter(ILoginView view, Context context) {
         this.view = view;
@@ -59,15 +58,7 @@ public class LoginPresenter implements ILoginPresenter {
     }
 
     @Override
-    public void isChboxAccept(boolean chbox) {
-        this.chbox = chbox;
-    }
-
-    @Override
     public void toEnter(String email, String password) {
-        final String emailtmp = email;
-        final String[] username = email.split("@");
-
         if (!edtLoginTextChanged(email) && !edtPasswordTextChanged(password)) {
             view.showLoading();
             mAuth.signInWithEmailAndPassword(email, password)
@@ -76,23 +67,7 @@ public class LoginPresenter implements ILoginPresenter {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             view.hideLoading();
                             if (task.isSuccessful()) {
-
-                                if (chbox) {
-                                   /* UserDoco userDoco = Cache.getInstance().get("user", UserDoco.class);
-                                    userDoco.setIs_active(true);
-                                    userDoco.setUser_name(username[0]);
-                                    userDoco.setEmail(emailtmp);
-                                    Cache.getInstance().add("user", userDoco);*/
-                                    SharedPreferences sharedPreferences = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putBoolean("isActive", true);
-                                    editor.putString("username", username[0]);
-                                    editor.putString("email", emailtmp);
-                                    editor.commit();
-                                }
-
                                 view.goToMainActivity();
-
                             } else {
                                 view.showErrorAutentication(task.getException());
                             }
