@@ -81,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 .requestEmail()
                 .build();
 
+
         mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
                 .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
                     @Override

@@ -41,7 +41,7 @@ public class PlacesDataHelper {
     private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
     private static final String OUT_JSON = "/json";
 
-    private static final String API_KEY = "AIzaSyCQxJew5urn4FKygB8xpQPqA2f-OOCeP7I";
+    private static final String API_KEY = "AIzaSyBtYEqw-HOMIAKiGjWivKhYgbvJR-AmQWk";
 
 
     private static List<PlacesWrapper> sPlacesWrappers = new ArrayList<>();
