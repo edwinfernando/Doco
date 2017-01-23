@@ -36,8 +36,20 @@ import com.domicilio.confiable.doco.util.DeviceDimensionsHelper;
 import com.domicilio.confiable.doco.util.Utilities;
 import com.domicilio.confiable.doco.views.fragments.BaseExampleFragment;
 import com.domicilio.confiable.doco.views.fragments.MapsFragment;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.domicilio.confiable.doco.util.Utilities.getMarkerBitmapFromView;
 
 
 public class MainActivity extends AppCompatActivity
@@ -69,6 +81,8 @@ public class MainActivity extends AppCompatActivity
 
     private DrawerLayout mDrawerLayout;
 
+    ArrayList<MarkerOptions> drivers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,16 +100,16 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        View hView =  navigationView.getHeaderView(0);
+        View hView = navigationView.getHeaderView(0);
         //View hView =  navigationView.inflateHeaderView(R.layout.nav_header_main);
         ImageView profile_image_nav = (ImageView) hView.findViewById(R.id.profile_image_nav);
-        profile_image_nav.setImageDrawable(Utilities.roundedBitmapDrawable(this,R.drawable.profile,
+        profile_image_nav.setImageDrawable(Utilities.roundedBitmapDrawable(this, R.drawable.profile,
                 (int) (DeviceDimensionsHelper.getDisplayWidth(this) * getResources().getDimension(R.dimen.size_photo_nav))));
 
         ImageView profile_image_marker = (ImageView) findViewById(R.id.profile_image_marker);
         /**
-        profile_image_marker.setImageDrawable(Utilities.roundedBitmapDrawable(this,R.drawable.profile,
-                (int) (DeviceDimensionsHelper.getDisplayWidth(this) * getResources().getDimension(R.dimen.size_photo_market_map))));**/
+         profile_image_marker.setImageDrawable(Utilities.roundedBitmapDrawable(this,R.drawable.profile,
+         (int) (DeviceDimensionsHelper.getDisplayWidth(this) * getResources().getDimension(R.dimen.size_photo_market_map))));**/
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_fragment, new MapsFragment()).commit();
@@ -125,6 +139,9 @@ public class MainActivity extends AppCompatActivity
         fab1.setOnClickListener(this);
         fab2.setOnClickListener(this);
         fab3.setOnClickListener(this);
+
+        //Firebase
+        drivers = new ArrayList<>();
     }
 
     @Override
@@ -196,7 +213,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_docos) {
 
         } else if (id == R.id.nav_free_docos) {
-            Intent intent = new Intent(this,FreeDocosActivity.class);
+            Intent intent = new Intent(this, FreeDocosActivity.class);
             startActivity(intent);
             finish();
         } else if (id == R.id.nav_promotions) {
@@ -206,7 +223,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_driver_doco) {
             deployDialogIsDriverDoco(this);
         } else if (id == R.id.nav_configuration) {
-            Intent intent = new Intent(MainActivity.this,SettingUserProfileActivity.class);
+            Intent intent = new Intent(MainActivity.this, SettingUserProfileActivity.class);
             //Intent intent = new Intent(this,SettingDriverProfileActivity.class);
             startActivity(intent);
             finish();
@@ -356,4 +373,53 @@ public class MainActivity extends AppCompatActivity
                 }
         );
     }
+
+    @Override
+    public void getDrivers(final GoogleMap nMap) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference();
+
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot children) {
+                for (DataSnapshot dataSnapshot : children.getChildren()) {
+                    LatLng driverUbication = new LatLng(dataSnapshot.child("latitud").getValue(Double.class),dataSnapshot.child("longitud").getValue(Double.class));
+                    String nameDriver = dataSnapshot.getKey();
+                    Log.d("LatLng-->",driverUbication.toString()+" NameDriver--->"+nameDriver);
+                    createMarkersDrivers(driverUbication,nameDriver);
+                    paintDriverOnMap(nMap);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void createMarkersDrivers(LatLng ubicationDriver,String nameDriver) {
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(ubicationDriver);
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(this, R.drawable.profile)));
+        markerOptions.title(nameDriver);
+        drivers.add(markerOptions);
+    }
+
+    @Override
+    public void paintDriverOnMap(GoogleMap nMap) {
+
+        int i=0;
+        do{
+            nMap.addMarker(drivers.get(i));
+            i++;
+        }while (i<drivers.size());
+
+    }
+
+
 }

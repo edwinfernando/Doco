@@ -64,7 +64,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -81,6 +80,9 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
     MainActivity mainActivity;
+
+
+
     ArrayList<LatLng> MarkerPoints;
     private GoogleMap nMap;
     private IMapsPresenter presenter;
@@ -137,6 +139,7 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
     public void onResume() {
         super.onResume();
         presenter.onResume();
+
     }
 
     @Override
@@ -175,6 +178,7 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
             }
 
 
+            mainActivity.getDrivers(nMap);
             nMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                 @Override
                 public void onMapClick(LatLng latLng) {
@@ -356,6 +360,7 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
         if (currLocationMarker != null) {
             currLocationMarker.remove();
         }
+
         origin = new LatLng(location.getLatitude(), location.getLongitude());
         Toast.makeText(getActivity(), "Location Changed", Toast.LENGTH_SHORT).show();
         //zoom to current position:
@@ -365,13 +370,14 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
                 .newCameraPosition(cameraPosition));
         //If you only need one location, unregister the listener
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+
     }
 
     @Override
     public boolean onMarkerClick(com.google.android.gms.maps.model.Marker marker) {
 
-        if (marker.getTitle().equalsIgnoreCase("target")) {
-            Toast.makeText(getActivity(), date_route, Toast.LENGTH_LONG).show();
+        if (marker.getTitle().equalsIgnoreCase("usuario")) {
+            Toast.makeText(getActivity(), "YO!!!", Toast.LENGTH_LONG).show();
         }
         return true;
     }
@@ -715,6 +721,17 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
         //driverComeView.setDateRoute(jsonDistance.getString("text"),jsonTime.getString("text"));
         return date_route;
     }
+
+    public void showDriversOnMap(ArrayList<MarkerOptions> driver)
+    {
+        int i=0;
+        do {
+              nMap.addMarker(driver.get(i));
+            i++;
+        }while (i<driver.size());
+    }
+
+
 
 
 }
