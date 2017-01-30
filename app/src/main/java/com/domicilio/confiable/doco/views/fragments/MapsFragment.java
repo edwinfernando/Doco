@@ -100,6 +100,8 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
     LatLng latLng;
     com.google.android.gms.maps.model.Marker currLocationMarker;
 
+    ArrayList<MarkerOptions> markers;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mapView = inflater.inflate(R.layout.fragment_maps, container, false);
@@ -321,6 +323,7 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
                 //place marker at current position
                 nMap.clear();
                 latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                mainActivity.addDrivers(latLng);
 
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
@@ -376,9 +379,17 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
     @Override
     public boolean onMarkerClick(com.google.android.gms.maps.model.Marker marker) {
 
-        if (marker.getTitle().equalsIgnoreCase("usuario")) {
-            Toast.makeText(getActivity(), "YO!!!", Toast.LENGTH_LONG).show();
-        }
+        markers = mainActivity.getMarkersDriver();
+        int i=0;
+        boolean one=false;
+        do {
+            if(markers.get(i).getTitle().equalsIgnoreCase(marker.getTitle()))
+            {
+                Toast.makeText(getActivity(),"Hola "+markers.get(i).getTitle(), Toast.LENGTH_LONG).show();
+                one=true;
+            }
+            i++;
+        }while (i<markers.size() && !one);
         return true;
     }
 

@@ -3,6 +3,7 @@ package com.domicilio.confiable.doco.views.activities;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -32,6 +33,7 @@ import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.domicilio.confiable.doco.R;
+import com.domicilio.confiable.doco.model.Ubication;
 import com.domicilio.confiable.doco.util.DeviceDimensionsHelper;
 import com.domicilio.confiable.doco.util.Utilities;
 import com.domicilio.confiable.doco.views.fragments.BaseExampleFragment;
@@ -82,6 +84,8 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout mDrawerLayout;
 
     ArrayList<MarkerOptions> drivers;
+    FirebaseDatabase database;// =
+    DatabaseReference reference;// = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +146,8 @@ public class MainActivity extends AppCompatActivity
 
         //Firebase
         drivers = new ArrayList<>();
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference(Ubication.UBICATION);
     }
 
     @Override
@@ -375,25 +381,24 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void addDrivers(LatLng location) {
+       reference.push().setValue(new Ubication(location.latitude,location.longitude,"Edwin"));
+    }
+
+    @Override
     public void getDrivers(final GoogleMap nMap) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference();
-
-
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot children) {
                 for (DataSnapshot dataSnapshot : children.getChildren()) {
-                    LatLng driverUbication = new LatLng(dataSnapshot.child("latitud").getValue(Double.class),dataSnapshot.child("longitud").getValue(Double.class));
-                    String nameDriver = dataSnapshot.getKey();
-                    Log.d("LatLng-->",driverUbication.toString()+" NameDriver--->"+nameDriver);
-                    createMarkersDrivers(driverUbication,nameDriver);
+                    Log.d("Informacion--->",dataSnapshot.toString());
+                    LatLng driverUbication = new LatLng(dataSnapshot.child("latitude").getValue(Double.class), dataSnapshot.child("longitude").getValue(Double.class));
+                    String nameDriver = dataSnapshot.child("nameDriver").getValue(String.class);
+                    Log.d("LatLng-->", driverUbication.toString() + " NameDriver--->" + nameDriver);
+                    createMarkersDrivers(driverUbication, nameDriver);
                     paintDriverOnMap(nMap);
-
                 }
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -402,7 +407,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void createMarkersDrivers(LatLng ubicationDriver,String nameDriver) {
+    public ArrayList<MarkerOptions> getMarkersDriver() {
+        return drivers;
+    }
+
+
+    @Override
+    public void createMarkersDrivers(LatLng ubicationDriver, String nameDriver) {
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(ubicationDriver);
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(this, R.drawable.profile)));
@@ -413,11 +424,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void paintDriverOnMap(GoogleMap nMap) {
 
-        int i=0;
-        do{
+        int i = 0;
+        do {
             nMap.addMarker(drivers.get(i));
             i++;
-        }while (i<drivers.size());
+        } while (i < drivers.size());
 
     }
 
