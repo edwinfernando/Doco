@@ -11,4 +11,5 @@ public interface ILoginPresenter {
     boolean edtPasswordTextChanged(String paswword);
     void toEnter(String email, String password) ;
     void createRegister();
+
 }

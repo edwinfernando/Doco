@@ -13,7 +13,10 @@ import com.domicilio.confiable.doco.util.MyLocationListener;
 import com.domicilio.confiable.doco.util.Utilities;
 import com.domicilio.confiable.doco.views.fragments.IMapsView;
 
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 
 public class MapsPresenter implements IMapsPresenter, LocationChangeListener {
@@ -61,6 +64,11 @@ public class MapsPresenter implements IMapsPresenter, LocationChangeListener {
     @Override
     public void onClickTarget() {
         view.goToDriverComeFragment();
+    }
+
+    @Override
+    public void showDriversOnMap(ArrayList<MarkerOptions> drivers) {
+
     }
 
     @Override

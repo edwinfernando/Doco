@@ -2,6 +2,7 @@ package com.domicilio.confiable.doco.presenters.activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.text.Editable;
@@ -80,4 +81,7 @@ public class LoginPresenter implements ILoginPresenter {
     public void createRegister() {
         view.goToRegisterActivity();
     }
+
+
+
 }

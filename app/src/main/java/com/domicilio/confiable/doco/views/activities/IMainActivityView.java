@@ -25,6 +25,7 @@ public interface IMainActivityView {
     ArrayList<MarkerOptions> getMarkersDriver();
     void createMarkersDrivers(LatLng ubicationDriver,String nameDriver);
     void paintDriverOnMap(GoogleMap nMap);
+    void validateGPS();
 
 
 }
