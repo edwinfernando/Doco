@@ -82,7 +82,6 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
     MainActivity mainActivity;
 
 
-
     ArrayList<LatLng> MarkerPoints;
     private GoogleMap nMap;
     private IMapsPresenter presenter;
@@ -157,9 +156,9 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
 
         String date = Utilities.getDate();
         boolean nigth = Utilities.isNigth(date);
-        Log.d("isNigth--->",nigth+"");
-        if(nigth){
-            nMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(mapView.getContext(),R.raw.style_json));
+        Log.d("isNigth--->", nigth + "");
+        if (nigth) {
+            nMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(mapView.getContext(), R.raw.style_json));
         }
 
         if (CheckPermissionActivityManager.checkPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION, null)) {
@@ -380,16 +379,15 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
     public boolean onMarkerClick(com.google.android.gms.maps.model.Marker marker) {
 
         markers = mainActivity.getMarkersDriver();
-        int i=0;
-        boolean one=false;
+        int i = 0;
+        boolean one = false;
         do {
-            if(markers.get(i).getTitle().equalsIgnoreCase(marker.getTitle()))
-            {
-                Toast.makeText(getActivity(),"Hola "+markers.get(i).getTitle(), Toast.LENGTH_LONG).show();
-                one=true;
+            if (markers.get(i).getTitle().equalsIgnoreCase(marker.getTitle())) {
+                Toast.makeText(getActivity(), "Hola " + markers.get(i).getTitle(), Toast.LENGTH_LONG).show();
+                one = true;
             }
             i++;
-        }while (i<markers.size() && !one);
+        } while (i < markers.size() && !one);
         return true;
     }
 
@@ -519,6 +517,7 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
      **************************************************************************************/
 
     private void setupFloatingSearch() {
+        mSearchView.setFocusable(true);
         mSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
 
             @Override
@@ -539,16 +538,15 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
                     PlacesDataHelper.findSuggestions(getActivity(), newQuery, 5, FIND_SUGGESTION_SIMULATED_DELAY, new PlacesDataHelper.OnFindSuggestionsListener() {
                         @Override
                         public void onResults(List<PlacesAutoComplete> results) {
-                            if(results!=null)
-                            {
+                            if (results != null) {
                                 Log.d("List results---->", results.size() + "");
                                 mSearchView.swapSuggestions(results);
                                 mSearchView.hideProgress();
-                            }else {
-                                Log.d("results-->","Null");
+                            } else {
+                                Log.d("results-->", "Null");
                             }
                         }
-                    },latLng);
+                    }, latLng);
                 }
 
                 Log.d(TAG, "onSearchTextChanged()");
@@ -567,7 +565,6 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
                 Log.d(TAG, "onSearchAction()");
             }
         });
-
         mSearchView.setOnFocusChangeListener(new FloatingSearchView.OnFocusChangeListener() {
             @Override
             public void onFocus() {
@@ -616,15 +613,15 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
             public void onActionMenuItemSelected(MenuItem item) {
                 //just print action
                 if (item.getItemId() == R.id.action_location) {
-                    if (mSearchView.getQuery().equalsIgnoreCase("")) {
-                        Toast.makeText(getActivity(), "Favor Ingrese una dirección", Toast.LENGTH_SHORT).show();
-                    } else {
+                    if (!mSearchView.getQuery().equalsIgnoreCase("")) {
                         target = Utilities.getLocationFromAddress(getActivity().getApplicationContext(), mSearchView.getQuery());
                         nMap.clear();
                         String url = Utilities.getUrl(origin, target);
                         FetchUrl FetchUrl = new FetchUrl();
                         FetchUrl.execute(url);
                         fadeDimBackground(150, 0, null);
+                    } else {
+                        focusToSearchView();
                     }
                 }
             }
@@ -718,7 +715,6 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
         if (data == null) {
             return null;
         }
-
         JSONObject jsonData = new JSONObject(data);
         JSONArray jsonRoutes = jsonData.getJSONArray("routes");
         JSONObject jsonRoute = jsonRoutes.getJSONObject(0);
@@ -733,16 +729,25 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
         return date_route;
     }
 
-    public void showDriversOnMap(ArrayList<MarkerOptions> driver)
-    {
-        int i=0;
-        do {
-              nMap.addMarker(driver.get(i));
-            i++;
-        }while (i<driver.size());
+    public void focusToSearchView(){
+        if (!mSearchView.isSearchBarFocused()){
+            int headerHeight = 0;
+            ObjectAnimator anim = ObjectAnimator.ofFloat(mSearchView, "translationY",
+                    headerHeight, 0);
+            anim.setDuration(350);
+            fadeDimBackground(0, 150, null);
+            anim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    if (!mSearchView.isSearchBarFocused()) {
+                        mSearchView.setSearchFocused(true);
+                        InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        mgr.showSoftInput(mSearchView, InputMethodManager.SHOW_FORCED);
+                    }
+                }
+            });
+            anim.start();
+        }
     }
-
-
-
 
 }

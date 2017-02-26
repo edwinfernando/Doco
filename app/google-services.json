@@ -1,42 +1,49 @@
 {
   "project_info": {
-    "project_number": "374040750800",
-    "firebase_url": "https://doco-9fc66.firebaseio.com",
-    "project_id": "doco-9fc66",
-    "storage_bucket": "doco-9fc66.appspot.com"
+    "project_number": "524709991679",
+    "firebase_url": "https://domicilioconfiable-159920.firebaseio.com",
+    "project_id": "domicilioconfiable-159920",
+    "storage_bucket": "domicilioconfiable-159920.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:374040750800:android:df1ff0cba61c28a6",
+        "mobilesdk_app_id": "1:524709991679:android:df1ff0cba61c28a6",
         "android_client_info": {
           "package_name": "com.domicilio.confiable.doco"
         }
       },
       "oauth_client": [
         {
-          "client_id": "374040750800-dcgov760e99oi8igcdceo14ovm2rpbcv.apps.googleusercontent.com",
+          "client_id": "524709991679-n20fjkflsqq5165m7rkuvcn0bv811fjk.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "524709991679-o7nm3g9t0h9tmobva6hrbn3peapgaet4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.domicilio.confiable.doco",
-            "certificate_hash": "33011C81EC0365B8626341D71E27E1BBE2E4575E"
+            "certificate_hash": "33011c81ec0365b8626341d71e27e1bbe2e4575e"
           }
-        },
-        {
-          "client_id": "375755644270-9qar8lb0pmg8k6nlihqcjk7lf81l4fll.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
-      "api_key": [{
-        "current_key": "AIzaSyBtYEqw-HOMIAKiGjWivKhYgbvJR-AmQWk"
-      }],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCSuC08mLf5H9ZdeIlSEyxzfgmke3ACNc"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 1
         },
         "appinvite_service": {
           "status": 2,
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "524709991679-n20fjkflsqq5165m7rkuvcn0bv811fjk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
