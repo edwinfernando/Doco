@@ -4,20 +4,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,13 +25,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.domicilio.confiable.doco.R;
 import com.domicilio.confiable.doco.model.Ubication;
+import com.domicilio.confiable.doco.repositorio.SessionDAO;
 import com.domicilio.confiable.doco.util.DeviceDimensionsHelper;
+import com.domicilio.confiable.doco.util.ManagerDataBaseFirebase;
 import com.domicilio.confiable.doco.util.Utilities;
 import com.domicilio.confiable.doco.views.fragments.BaseExampleFragment;
 import com.domicilio.confiable.doco.views.fragments.MapsFragment;
@@ -53,6 +49,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -160,6 +157,7 @@ public class MainActivity extends AppCompatActivity
         drivers = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference(Ubication.UBICATION);
+        addDriverPerson();
     }
 
     @Override
@@ -394,7 +392,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void addDrivers(LatLng location) {
-        reference.push().setValue(new Ubication(location.latitude, location.longitude, "Edwin"));
+        reference.push().setValue(new Ubication(location.latitude,location.longitude,SessionDAO.getInstance().getUserDisplayName(),"1"));
     }
 
     @Override
@@ -402,6 +400,8 @@ public class MainActivity extends AppCompatActivity
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot children) {
+                drivers.clear();
+                nMap.clear();
                 for (DataSnapshot dataSnapshot : children.getChildren()) {
                     Log.d("Informacion--->", dataSnapshot.toString());
                     LatLng driverUbication = new LatLng(dataSnapshot.child("latitude").getValue(Double.class), dataSnapshot.child("longitude").getValue(Double.class));
@@ -498,4 +498,13 @@ public class MainActivity extends AppCompatActivity
 
         }
     }
+
+    @Override
+    public void addDriverPerson() {
+        SessionDAO.getInstance().setFirebaseUser(FirebaseAuth.getInstance().getCurrentUser());
+        SessionDAO.getInstance().setUserDisplayName(SessionDAO.getInstance().getFirebaseUser().getDisplayName());
+        ManagerDataBaseFirebase.getInstance().agregarPersona("Personas","1",FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),"3147452427","juanfernando",1);
+    }
+
+
 }

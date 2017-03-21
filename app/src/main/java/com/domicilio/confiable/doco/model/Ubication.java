@@ -10,12 +10,14 @@ public class Ubication {
     private double latitude;
     private double longitude;
     private String nameDriver;
+    private String id_persona;
     public final static String UBICATION="Ubicaciones";
 
-    public Ubication(double nLatitude,double nLongitude,String nNameDriver){
-        latitude = nLatitude;
-        longitude = nLongitude;
-        nameDriver = nNameDriver;
+    public Ubication(double nLatitude,double nLongitude,String nNameDriver,String nIdPersona){
+        this.latitude = nLatitude;
+        this.longitude = nLongitude;
+        this.nameDriver = nNameDriver;
+        this.id_persona = nIdPersona;
     }
 
     public double getLatitude() {
@@ -40,5 +42,13 @@ public class Ubication {
 
     public void setNameDriver(String nameDriver) {
         this.nameDriver = nameDriver;
+    }
+
+    public String getId_persona() {
+        return id_persona;
+    }
+
+    public void setId_persona(String id_persona) {
+        this.id_persona = id_persona;
     }
 }

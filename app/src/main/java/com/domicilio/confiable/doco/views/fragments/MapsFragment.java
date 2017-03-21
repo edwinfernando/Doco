@@ -37,6 +37,7 @@ import com.domicilio.confiable.doco.data.PlacesDataHelper;
 import com.domicilio.confiable.doco.domain.Marker;
 import com.domicilio.confiable.doco.presenters.fragments.IMapsPresenter;
 import com.domicilio.confiable.doco.presenters.fragments.MapsPresenter;
+import com.domicilio.confiable.doco.repositorio.SessionDAO;
 import com.domicilio.confiable.doco.util.DataParser;
 import com.domicilio.confiable.doco.util.Utilities;
 import com.domicilio.confiable.doco.views.activities.CheckPermissionActivityManager;
@@ -322,6 +323,7 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
                 //place marker at current position
                 nMap.clear();
                 latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                SessionDAO.getInstance().setLocationUser(latLng);
                 mainActivity.addDrivers(latLng);
 
                 MarkerOptions markerOptions = new MarkerOptions();
@@ -381,13 +383,17 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
         markers = mainActivity.getMarkersDriver();
         int i = 0;
         boolean one = false;
-        do {
-            if (markers.get(i).getTitle().equalsIgnoreCase(marker.getTitle())) {
-                Toast.makeText(getActivity(), "Hola " + markers.get(i).getTitle(), Toast.LENGTH_LONG).show();
-                one = true;
-            }
-            i++;
-        } while (i < markers.size() && !one);
+        try {
+            do {
+                if (markers.get(i).getTitle().equalsIgnoreCase(marker.getTitle())) {
+                    Toast.makeText(getActivity(), "Hola " + markers.get(i).getTitle(), Toast.LENGTH_LONG).show();
+                    one = true;
+                }
+                i++;
+            } while (i < markers.size() && !one);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return true;
     }
 
@@ -535,18 +541,20 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
 
                     //simulates a query call to a data source
                     //with a new query.
-                    PlacesDataHelper.findSuggestions(getActivity(), newQuery, 5, FIND_SUGGESTION_SIMULATED_DELAY, new PlacesDataHelper.OnFindSuggestionsListener() {
-                        @Override
-                        public void onResults(List<PlacesAutoComplete> results) {
-                            if (results != null) {
-                                Log.d("List results---->", results.size() + "");
-                                mSearchView.swapSuggestions(results);
-                                mSearchView.hideProgress();
-                            } else {
-                                Log.d("results-->", "Null");
+                    if (!newQuery.isEmpty()) {
+                        PlacesDataHelper.findSuggestions(getActivity(), newQuery, 5, FIND_SUGGESTION_SIMULATED_DELAY, new PlacesDataHelper.OnFindSuggestionsListener() {
+                            @Override
+                            public void onResults(List<PlacesAutoComplete> results) {
+                                if (results != null) {
+                                    Log.d("List results---->", results.size() + "");
+                                    mSearchView.swapSuggestions(results);
+                                    mSearchView.hideProgress();
+                                } else {
+                                    Log.d("results-->", "Null");
+                                }
                             }
-                        }
-                    }, latLng);
+                        }, latLng);
+                    }
                 }
 
                 Log.d(TAG, "onSearchTextChanged()");
@@ -729,8 +737,8 @@ public class MapsFragment extends BaseExampleFragment implements IMapsView, OnMa
         return date_route;
     }
 
-    public void focusToSearchView(){
-        if (!mSearchView.isSearchBarFocused()){
+    public void focusToSearchView() {
+        if (!mSearchView.isSearchBarFocused()) {
             int headerHeight = 0;
             ObjectAnimator anim = ObjectAnimator.ofFloat(mSearchView, "translationY",
                     headerHeight, 0);

@@ -7,7 +7,6 @@ import android.util.Log;
 import android.widget.Filter;
 
 
-
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -102,7 +101,7 @@ public class PlacesDataHelper {
                     i++;
                 } while (i < resultados.size());
 
-                Log.d("sPlacesSuggestions-->",""+sPlacesSuggestions.size());
+                Log.d("sPlacesSuggestions-->", "" + sPlacesSuggestions.size());
 
                 FilterResults results = new FilterResults();
                 Collections.sort(sPlacesSuggestions, new Comparator<PlacesAutoComplete>() {
@@ -111,7 +110,7 @@ public class PlacesDataHelper {
                         return lhs.getIsHistory() ? -1 : 0;
                     }
                 });
-                Log.d("suggestionList-->",""+sPlacesSuggestions.size());
+                Log.d("suggestionList-->", "" + sPlacesSuggestions.size());
                 results.values = sPlacesSuggestions;
                 results.count = sPlacesSuggestions.size();
                 return results;
@@ -240,6 +239,8 @@ public class PlacesDataHelper {
         } catch (IOException e) {
             Log.e(TAG, "Error connecting to Places API", e);
             return resultList;
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (conn != null) {
                 conn.disconnect();

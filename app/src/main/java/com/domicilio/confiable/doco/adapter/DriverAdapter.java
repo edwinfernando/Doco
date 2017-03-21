@@ -12,8 +12,10 @@ import android.widget.TextView;
 import com.domicilio.confiable.doco.R;
 import com.domicilio.confiable.doco.model.Driver;
 import com.domicilio.confiable.doco.presenters.fragments.IDriverAvailablePresenter;
+import com.domicilio.confiable.doco.repositorio.SessionDAO;
 import com.domicilio.confiable.doco.util.DeviceDimensionsHelper;
 import com.domicilio.confiable.doco.util.Utilities;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -27,11 +29,13 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverHold
 
     private List<Driver> dataSource;
     private Context context;
+    private SessionDAO sessionDAO;
 
     public DriverAdapter(Context context, List<Driver> dataSource, IDriverAvailablePresenter driverAvaiblePresenter) {
         this.context = context;
         this.dataSource = dataSource;
         this.driverAvailablePresenter = driverAvaiblePresenter;
+        this.sessionDAO = SessionDAO.getSessionDAO();
     }
 
     @Override
@@ -50,9 +54,10 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.DriverHold
 
         holder.view.setOnClickListener(this);
 
-        holder.driver_available_image.setImageDrawable(Utilities.roundedBitmapDrawable(context,R.drawable.profile,
-                (int) (DeviceDimensionsHelper.getDisplayWidth(context) * context.getResources().getDimension(R.dimen.size_photo_item_driver_available))));
-        holder.driver_distance.setText("");
+        /*holder.driver_available_image.setImageDrawable(Utilities.roundedBitmapDrawable(context,R.drawable.profile,
+                (int) (DeviceDimensionsHelper.getDisplayWidth(context) * context.getResources().getDimension(R.dimen.size_photo_item_driver_available))));*/
+        Picasso.with(context).load(sessionDAO.getFirebaseUser().getPhotoUrl()).into(holder.driver_available_image);
+        holder.driver_distance.setText(String.valueOf(Utilities.distanciaCoord(3.436622, -76.528357,sessionDAO.getLocationUser().latitude,sessionDAO.getLocationUser().longitude))+"Km");
         holder.driver_time.setText("");
     }
 

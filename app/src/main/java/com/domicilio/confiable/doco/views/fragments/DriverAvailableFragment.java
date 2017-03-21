@@ -40,14 +40,14 @@ public class DriverAvailableFragment extends Fragment implements IDriverAvailabl
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_list_drives, container, false);
- 
+
         linear_layout_manager = new LinearLayoutManager(getContext());
         LDrivers lDrivers = new LDrivers();
 
         list_driver_available = (RecyclerView) view.findViewById(R.id.list_drivers_avaible);
 
         if (lDrivers.getListDrivers().size()<1)
-            lDrivers.addDriver("12344","Edwin Fernando Muñoz","3137649407",70);
+            lDrivers.addDriver("12344","Juan Cabuyales","3147452427",20);
 
         driver_list = lDrivers.getListDrivers();
         driverAvailablePresenter = new DriverAvailablePresenter(this, getActivity());
@@ -63,7 +63,7 @@ public class DriverAvailableFragment extends Fragment implements IDriverAvailabl
     public void gotoDriverProfileFragment() {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         //fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
-        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right,  R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
         fragmentTransaction.replace(R.id.fragment_container, new DriverProfileFragment());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -73,7 +73,7 @@ public class DriverAvailableFragment extends Fragment implements IDriverAvailabl
     public void gotoDriverComeFragment() {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         //fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
-        fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right,  R.anim.exit_to_left);
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
         fragmentTransaction.replace(R.id.fragment_container, new DriverComeFragment());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();

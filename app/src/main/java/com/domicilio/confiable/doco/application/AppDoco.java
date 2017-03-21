@@ -24,7 +24,7 @@ public class AppDoco extends Application {
 
         Cache.getInstance().init(getApplicationContext());
         DriversSQLHelper slqHelper = new DriversSQLHelper(getApplicationContext(),"DocoDB",null,1);
-        SessionDAO.setDriverDAO(new DriverDAO(slqHelper));
+        SessionDAO.getInstance().setDriverDAO(new DriverDAO(slqHelper));
 
       /*  UserDoco userDoco = new UserDoco();
         userDoco.setIs_active(false);

@@ -14,7 +14,7 @@ public class LDrivers {
 
     private IDriverDAO driverDAO;
 
-    public LDrivers(){driverDAO = SessionDAO.getDriverDAO();}
+    public LDrivers(){driverDAO = SessionDAO.getInstance().getDriverDAO();}
 
     public void addDriver(String code, String name, String cel_driver, int satisfation_score){
         Driver driver = new Driver();
