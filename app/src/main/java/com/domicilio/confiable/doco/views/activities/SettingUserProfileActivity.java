@@ -3,6 +3,8 @@ package com.domicilio.confiable.doco.views.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.domicilio.confiable.doco.R;
 import com.domicilio.confiable.doco.util.DeviceDimensionsHelper;
 import com.domicilio.confiable.doco.util.Utilities;
@@ -24,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SettingUserProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,23 +50,41 @@ public class SettingUserProfileActivity extends AppCompatActivity implements Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_user_profile);
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle(user.getDisplayName());
         // toolbar.setLogo(R.drawable.ic_action_back);
         toolbar.setNavigationOnClickListener(this);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (getSupportActionBar() != null) // Habilitar up button
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         ButterKnife.bind(this);
 
-        imageProfile.setImageDrawable(Utilities.roundedBitmapDrawable(this,R.drawable.profile,
+        imageProfile.setImageDrawable(Utilities.bitmapDrawable(this,R.drawable.profile,
                 (int) (DeviceDimensionsHelper.getDisplayWidth(this) * getResources().getDimension(R.dimen.size_photo_profile_setting))));
+
+        //loadImageParallax(R.drawable.profile);
 
         edt_user_name_profile.setText(user.getDisplayName());
         edt_user_profile_email.setText(user.getEmail());
 
         //toolbar.setTitleTextColor(getResources().getColor(R.color.ColorPrimary));
+    }
+
+    /**
+     * Se carga una imagen aleatoria para el detalle
+     */
+    private void loadImageParallax(int id) {
+        ImageView image = (ImageView) findViewById(R.id.profile_image_user);
+        // Usando Glide para la carga asíncrona
+        Glide.with(this)
+                .load(id)
+                .centerCrop()
+                .into(image);
     }
 
     @Override
@@ -142,5 +164,11 @@ public class SettingUserProfileActivity extends AppCompatActivity implements Vie
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @OnClick(R.id.fab)
+    public void onClickFab(){
+        Snackbar.make(findViewById(R.id.coordinator), "Opción de Chatear", Snackbar.LENGTH_LONG)
+                .show();
     }
 }

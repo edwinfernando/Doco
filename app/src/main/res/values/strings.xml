@@ -48,12 +48,15 @@
     <string name="name_user">nombre</string>
     <string name="last_name_user">apellido</string>
     <string name="movil_user">MÓVIL</string>
-    <string name="my_locations">MÍS UBICACIONES</string>
+    <string name="my_data">Mís datos</string>
+    <string name="my_locations">Mís ubicaciones</string>
+    <string name="name">nombre</string>
+    <string name="phone">teléfono</string>
     <string name="home">casa</string>
     <string name="office">oficina</string>
     <string name="delete_account">Eliminar cuenta</string>
     <string name="sign_off">Cerrar sesión</string>
-    <string name="vehicle">VEHICULO</string>
+    <string name="vehicle">Vehiculo</string>
     <string name="vehicle_model">model</string>
     <string name="docos_promotions_question">¿DOCOS gratis?</string>
     <string name="invite_your_friends">Invita a tus amigos</string>
@@ -70,5 +73,6 @@
     <string name="err_msg_login_no_empty">El campo email no puede ser vacío</string>
     <string name="msg_sign_off">Desea cerrar sesión?</string>
     <string name="msg_delete_account">Desea eliminar cuenta?</string>
+    <string name="action_image">Cambiar imagen</string>
 
 </resources>

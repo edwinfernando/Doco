@@ -2,17 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/options"
+        android:id="@+id/opt_delete_account"
+        android:icon="@drawable/ic_delete"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        android:icon="@drawable/ic_action_profile"
-        app:showAsAction="always">
-        <!-- "file" submenu -->
-        <menu>
-            <item android:id="@+id/opt_delete_account"
-                android:title="@string/delete_account" />
-            <item android:id="@+id/opt_sign_off"
-                android:title="@string/sign_off" />
-        </menu>
-    </item>
+        android:title="@string/delete_account"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/opt_sign_off"
+        android:icon="@drawable/ic_power_settings"
+        android:orderInCategory="100"
+        android:title="@string/sign_off"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/ic_person_add"
+        android:icon="@drawable/ic_camera"
+        android:orderInCategory="1"
+        android:title="@string/action_image"
+        app:showAsAction="ifRoom" />
 </menu>

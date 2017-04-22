@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -135,8 +136,17 @@ public class Utilities {
         RoundedBitmapDrawable roundedDrawable = RoundedBitmapDrawableFactory.create(context.getResources(), originalBitmap);
         //asignamos el CornerRadius
         roundedDrawable.setCornerRadius(originalBitmap.getHeight());
-
         return roundedDrawable;
+    }
+
+    public static BitmapDrawable bitmapDrawable(Context context, int resId, int size) {
+        //extraemos el drawable en un bitmap
+        Drawable originalDrawable = context.getResources().getDrawable(resId);
+        Bitmap originalBitmap = ((BitmapDrawable) originalDrawable).getBitmap();
+        originalBitmap = BitmapScaler.strechToFill(originalBitmap, size, size);
+
+        BitmapDrawable drawable = new BitmapDrawable(context.getResources(), originalBitmap);
+        return drawable;
     }
 
     public static double fijarNumero(double numero, int digitos) {

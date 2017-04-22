@@ -44,25 +44,30 @@ public class SettingDriverProfileActivity extends AppCompatActivity implements V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting_driver_profile);
+        setContentView(R.layout.activity_setting_user_profile);
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle(user.getDisplayName());
         // toolbar.setLogo(R.drawable.ic_action_back);
         toolbar.setNavigationOnClickListener(this);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (getSupportActionBar() != null) // Habilitar up button
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         ButterKnife.bind(this);
 
-        imageProfile.setImageDrawable(Utilities.roundedBitmapDrawable(this, R.drawable.profile,
+        imageProfile.setImageDrawable(Utilities.bitmapDrawable(this,R.drawable.profile,
                 (int) (DeviceDimensionsHelper.getDisplayWidth(this) * getResources().getDimension(R.dimen.size_photo_profile_setting))));
+
+        //loadImageParallax(R.drawable.profile);
 
         edt_user_name_profile.setText(user.getDisplayName());
         edt_user_profile_email.setText(user.getEmail());
 
         //toolbar.setTitleTextColor(getResources().getColor(R.color.ColorPrimary));
-
     }
 
     @Override

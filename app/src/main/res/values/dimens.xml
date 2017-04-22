@@ -13,11 +13,18 @@
     <dimen name="size_photo_market_map">0.13px</dimen>
     <dimen name="size_photo_item_driver_available">0.17px</dimen>
     <dimen name="size_photo_profile">0.34px</dimen>
-    <dimen name="size_photo_profile_setting">0.34px</dimen>
+    <dimen name="size_photo_profile_setting">1px</dimen>
 
     <dimen name="border_margin">5dp</dimen>
     <dimen name="height_dialog">140dp</dimen>
 
     <dimen name="padding_left_rigth">40dp</dimen>
     <dimen name="padding_top_bottom">5dp</dimen>
+    <dimen name="margin_text_input">10dp</dimen>
+
+    <dimen name="headerbar_elevation">4dp</dimen>
+    <dimen name="card_margin">8dp</dimen>
+    <dimen name="size_fab">56dp</dimen>
+    <dimen name="avatar_size">40dp</dimen>
+    <dimen name="fab_elevation">5dp</dimen>
 </resources>

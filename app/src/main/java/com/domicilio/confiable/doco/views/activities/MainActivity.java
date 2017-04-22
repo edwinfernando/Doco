@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, SettingUserProfileActivity.class);
             //Intent intent = new Intent(this,SettingDriverProfileActivity.class);
             startActivity(intent);
-            finish();
+           // finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
